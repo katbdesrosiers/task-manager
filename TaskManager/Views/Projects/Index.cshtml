@@ -1,0 +1,17 @@
+﻿@model ICollection<TaskManager.Models.Project>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Dashboard</h2>
+
+<ul>
+    @foreach (var project in Model)
+    {
+        <li>
+            @project.Name
+            @Html.ActionLink("Details", "Details", new { id = project.ID })
+        </li>
+    }
+</ul>
+

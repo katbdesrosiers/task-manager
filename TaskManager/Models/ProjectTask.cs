@@ -9,7 +9,7 @@ namespace TaskManager.Models
 	{
 		public ProjectTask()
 		{
-			Users = new HashSet<ApplicationUser>();
+			Developers = new HashSet<ApplicationUser>();
 		}
 
 		public int ID { get; set; }
@@ -18,6 +18,6 @@ namespace TaskManager.Models
 		public string Name { get; set; }
 
 		public virtual Project Project { get; set; }
-		public virtual ICollection<ApplicationUser> Users { get; set; }
+		public virtual ICollection<ApplicationUser> Developers { get; set; }
 	}
 }

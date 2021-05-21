@@ -1,0 +1,21 @@
+﻿@model TaskManager.Models.Project
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    if (!Html.ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary(false, "Errors", new { @class="text-danger"})
+        </div>
+    }
+    @Html.AntiForgeryToken()
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+    <input type="submit" value="Submit" />
+}
+

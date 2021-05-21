@@ -8,7 +8,7 @@ namespace TaskManager.Controllers
 {
 	public class HomeController : Controller
 	{
-		public ActionResult Index()
+		public ActionResult Index() //change method to check role of user logged in
 		{
 			return View();
 		}
