@@ -24,6 +24,12 @@ namespace TaskManager.Models
             return roleManager.Roles.Select(r => r.Name).ToList();
         }
 
+        public static bool CreateUser(ApplicationUser user, string password)
+        {
+            var result = userManager.Create(user, password);
+            return result.Succeeded;
+        }
+
         //Check if user is in a role
         public static bool UserInRole(string userId, string role)
         {
