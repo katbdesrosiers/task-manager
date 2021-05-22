@@ -190,6 +190,10 @@
     <Compile Include="Migrations\202105211856547_MakeProjectNameRequired.designer.cs">
       <DependentUpon>202105211856547_MakeProjectNameRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105221837322_MakeTaskNameRequired.cs" />
+    <Compile Include="Migrations\202105221837322_MakeTaskNameRequired.designer.cs">
+      <DependentUpon>202105221837322_MakeTaskNameRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -289,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105211856547_MakeProjectNameRequired.resx">
       <DependentUpon>202105211856547_MakeProjectNameRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105221837322_MakeTaskNameRequired.resx">
+      <DependentUpon>202105221837322_MakeTaskNameRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

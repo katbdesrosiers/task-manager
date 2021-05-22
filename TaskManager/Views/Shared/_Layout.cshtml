@@ -30,6 +30,14 @@
         </div>
     </div>
     <div class="container body-content">
+        @if (TempData["error"] != null)
+        {
+            <br />
+            <div class="alert alert-warning">
+                @TempData["error"]
+            </div>
+        }
+
         @RenderBody()
         <hr />
         <footer>
