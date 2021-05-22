@@ -265,11 +265,11 @@
     <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Tasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\TaskManager\" />
-    <Folder Include="Views\Tasks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

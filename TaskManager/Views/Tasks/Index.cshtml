@@ -1,0 +1,13 @@
+﻿@model ICollection<TaskManager.Models.ProjectTask>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<ul>
+    @foreach (var task in Model)
+    {
+        <li>@task.Name</li>
+    }
+</ul>
