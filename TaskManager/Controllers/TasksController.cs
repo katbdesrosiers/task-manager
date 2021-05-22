@@ -7,13 +7,18 @@ using TaskManager.Models;
 
 namespace TaskManager.Controllers
 {
+    [Authorize]
     public class TasksController : TaskManagerController
     {
         // GET: Tasks
+
         public ActionResult Index()
         {
-            return View();
+            var user = CurrentUser();
+            
+            return View(user.Tasks);
         }
+
         [HttpPost]
         public ActionResult Create([Bind(Include = "Name,ProjectID")] ProjectTask task)
         {
