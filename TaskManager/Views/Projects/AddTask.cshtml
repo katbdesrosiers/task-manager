@@ -1,0 +1,26 @@
+﻿@model TaskManager.Models.ProjectTask
+@{
+    ViewBag.Title = "AddTask";
+}
+
+<h2>New Task for <strong>@ViewBag.project.Name</strong></h2>
+
+@using (Html.BeginForm("CreateTask", "Projects"))
+{
+    if (!Html.ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary(false, "Errors", new { @class = "text-danger" })
+        </div>
+    }
+
+    @Html.AntiForgeryToken()
+    @Html.Hidden("ProjectID", (int)ViewBag.project.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <input type="submit" value="Add" name="add-task" class="btn btn-primary" />
+}

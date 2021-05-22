@@ -22,10 +22,18 @@ namespace TaskManager.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            project.Tasks.Add(task);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                project.Tasks.Add(task);
+                db.SaveChanges();
+            }
+            else
+            {
+                TempData["Error"] = "Task name cannot be blank";
+            }
 
-            return RedirectToAction("Details", "Projects", new { id = task.Project.ID});
+
+            return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
     }
 }
