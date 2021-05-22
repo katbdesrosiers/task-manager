@@ -1,17 +1,39 @@
 ﻿@model ICollection<TaskManager.Models.Project>
-@{
-    ViewBag.Title = "Index";
+@{ ViewBag.Title = "Projects Dashboard"; }
+
+<h2>Projects Dashboard</h2>
+
+@foreach (var project in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">@Html.ActionLink(project.Name, "Details", new { id = project.ID })</div>
+        <div class="panel-body">
+            <h3>Tasks</h3>
+            <div class="threes">
+                @foreach (var task in project.Tasks)
+                {
+                    <div class="panel panel-default self-start">
+                        <div class="panel-heading">@task.Name</div>
+                        <div class="list-group">
+                            @if (task.Developers.Count > 0)
+                            {
+                                foreach (var dev in task.Developers)
+                                {
+                                    <div class="list-group-item">
+                                        @dev.Email
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="list-group-item">
+                                    No developers assigned
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 }
-
-<h2>Dashboard</h2>
-
-<ul>
-    @foreach (var project in Model)
-    {
-        <li>
-            @project.Name
-            @Html.ActionLink("Details", "Details", new { id = project.ID })
-        </li>
-    }
-</ul>
-

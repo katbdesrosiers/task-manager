@@ -22,3 +22,17 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.threes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+}
+
+.self-start {
+    align-self: start;
+}
+
+.panel h3 {
+    margin: 0 0 1rem 0;
+}
