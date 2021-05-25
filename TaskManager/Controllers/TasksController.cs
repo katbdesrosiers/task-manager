@@ -20,7 +20,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority")] ProjectTask task)
+        public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority,DeveloperID")] ProjectTask task)
         {
             var project = db.Projects.Find(task.ProjectID);
 
@@ -34,7 +34,7 @@ namespace TaskManager.Controllers
             }
             else
             {
-                TempData["Error"] = "Task name cannot be blank";
+                TempData["Error"] = "Your task is missing something";
             }
 
 

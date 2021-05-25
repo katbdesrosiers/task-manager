@@ -7,40 +7,16 @@ using System.Web;
 
 namespace TaskManager.Models
 {
-	public class ProjectTask
-	{
-		public ProjectTask()
-		{
-			Developers = new HashSet<ApplicationUser>();
-			DateCreated = DateTime.Now;
-		}
+    public class ProjectTask : ScheduledItem
+    {
+        [Required]
+        public int ProjectID { get; set; }
 
-		public int ID { get; set; }
-		public int ProjectID { get; set; }
-		public int CompletionPercentage { get; set; }
-		[Required]
-		public string Name { get; set; }
-		public DateTime DateCreated { get; set; }
-		public DateTime Deadline { get; set; }
-		public DateTime? DateCompleted { get; set; }
-		public Priority Priority { get; set; }
+        [Required]
+        public string DeveloperID { get; set; }
 
-		public virtual Project Project { get; set; }
-		public virtual ICollection<ApplicationUser> Developers { get; set; }
-
-		[NotMapped]
-		public string PanelClassName
-		{
-			get
-			{
-				switch (Priority)
-				{
-					case Priority.High:
-						return "panel-warning";
-					default:
-						return "panel-info";
-				}
-			}
-		}
-	}
+        public int CompletionPercentage { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual ApplicationUser Developer { get; set; }
+    }
 }

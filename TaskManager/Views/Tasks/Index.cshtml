@@ -8,6 +8,6 @@
 <ul>
     @foreach (var task in Model)
     {
-        <li>@task.Name</li>
+        <li class="text-@task.PriorityClassName">@task.Name</li>
     }
 </ul>
