@@ -202,8 +202,17 @@
     <Compile Include="Migrations\202105251818342_AddPriority.designer.cs">
       <DependentUpon>202105251818342_AddPriority.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105252039374_TasksHaveSingleDeveloper.cs" />
+    <Compile Include="Migrations\202105252039374_TasksHaveSingleDeveloper.designer.cs">
+      <DependentUpon>202105252039374_TasksHaveSingleDeveloper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105252057514_RefactorProjectAndTaskModels.cs" />
+    <Compile Include="Migrations\202105252057514_RefactorProjectAndTaskModels.designer.cs">
+      <DependentUpon>202105252057514_RefactorProjectAndTaskModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ScheduledItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Project.cs" />
@@ -310,6 +319,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105251818342_AddPriority.resx">
       <DependentUpon>202105251818342_AddPriority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105252039374_TasksHaveSingleDeveloper.resx">
+      <DependentUpon>202105252039374_TasksHaveSingleDeveloper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105252057514_RefactorProjectAndTaskModels.resx">
+      <DependentUpon>202105252057514_RefactorProjectAndTaskModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
