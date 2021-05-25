@@ -15,16 +15,17 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            return View(user.Projects);
+            return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
 
         public ActionResult Create()
         {
+            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name")] Project project)
+        public ActionResult Create([Bind(Include = "Name,Deadline,Priority")] Project project)
         {
             var user = CurrentUser();
 
@@ -46,7 +47,7 @@ namespace TaskManager.Controllers
 
             if (project == null)
                 return HttpNotFound();
-
+            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View(project);
         }
         [HttpPost]

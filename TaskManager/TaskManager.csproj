@@ -194,6 +194,14 @@
     <Compile Include="Migrations\202105221837322_MakeTaskNameRequired.designer.cs">
       <DependentUpon>202105221837322_MakeTaskNameRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105251815329_AddDateCreatedAndDeadlineToProjectAndTask.cs" />
+    <Compile Include="Migrations\202105251815329_AddDateCreatedAndDeadlineToProjectAndTask.designer.cs">
+      <DependentUpon>202105251815329_AddDateCreatedAndDeadlineToProjectAndTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105251818342_AddPriority.cs" />
+    <Compile Include="Migrations\202105251818342_AddPriority.designer.cs">
+      <DependentUpon>202105251818342_AddPriority.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -296,6 +304,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105221837322_MakeTaskNameRequired.resx">
       <DependentUpon>202105221837322_MakeTaskNameRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105251815329_AddDateCreatedAndDeadlineToProjectAndTask.resx">
+      <DependentUpon>202105251815329_AddDateCreatedAndDeadlineToProjectAndTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105251818342_AddPriority.resx">
+      <DependentUpon>202105251818342_AddPriority.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

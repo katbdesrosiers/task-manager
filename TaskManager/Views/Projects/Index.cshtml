@@ -1,19 +1,20 @@
-﻿@model ICollection<TaskManager.Models.Project>
+﻿@model IEnumerable<TaskManager.Models.Project>
+@using TaskManager.Models;
 @{ ViewBag.Title = "Projects Dashboard"; }
 
 <h2>Projects Dashboard</h2>
 
 @foreach (var project in Model)
 {
-    <div class="panel panel-default">
-        <div class="panel-heading">@Html.ActionLink(project.Name, "Details", new { id = project.ID })</div>
+    <div class="panel @project.PanelClassName">
+        <div class="panel-heading">@Html.ActionLink(project.Name, "Details", new { id = project.ID })<span class="pull-right">@project.Deadline.ToShortDateString()</span></div>
         <div class="panel-body">
             <h3>Tasks</h3>
             <div class="threes">
                 @foreach (var task in project.Tasks)
                 {
                     <div class="panel panel-default self-start">
-                        <div class="panel-heading">@task.Name</div>
+                        <div class="panel-heading">@task.Name<span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
                         <div class="list-group">
                             @if (task.Developers.Count > 0)
                             {

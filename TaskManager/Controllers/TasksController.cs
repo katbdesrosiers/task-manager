@@ -20,7 +20,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create([Bind(Include = "Name,ProjectID")] ProjectTask task)
+        public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority")] ProjectTask task)
         {
             var project = db.Projects.Find(task.ProjectID);
 

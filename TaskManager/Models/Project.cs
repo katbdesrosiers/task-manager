@@ -6,20 +6,44 @@ using System.Web;
 
 namespace TaskManager.Models
 {
-	public class Project
-	{
-		public Project()
-		{
-			Tasks = new HashSet<ProjectTask>();
-		}
+    public enum Priority
+    {
+        Low,
+        High
+    }
 
-		public int ID { get; set; }
-		public string ManagerID { get; set; }
-		[Required]
-		public string Name { get; set; }
+    public class Project
+    {
+        public Project()
+        {
+            Tasks = new HashSet<ProjectTask>();
+            DateCreated = DateTime.Now;
+        }
 
-		public virtual ICollection<ProjectTask> Tasks { get; set; }
-		public virtual ApplicationUser Manager { get; set; }
-		//public DateTime Deadline { get; set; }
-	}
+        public int ID { get; set; }
+        public string ManagerID { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime Deadline { get; set; }
+        public DateTime? DateCompleted { get; set; }
+        public Priority Priority { get; set; }
+
+        public virtual ICollection<ProjectTask> Tasks { get; set; }
+        public virtual ApplicationUser Manager { get; set; }
+
+        public string PanelClassName
+        {
+            get
+            {
+                switch (Priority)
+                {
+                    case Priority.High:
+                        return "panel-warning";
+                    default:
+                        return "panel-info";                  
+                }
+            }
+        }
+    }
 }
