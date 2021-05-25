@@ -18,6 +18,12 @@ namespace TaskManager.Controllers
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
 
+
+
+
+
+
+
         public ActionResult Create()
         {
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
