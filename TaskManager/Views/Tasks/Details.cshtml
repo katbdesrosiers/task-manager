@@ -1,13 +1,13 @@
 ﻿@model TaskManager.Models.ProjectTask
+@using TaskManager.Models;
 @{
     ViewBag.Title = "Details";
 }
-
-<h2><strong>Task:</strong> @Model.Name</h2>
+<br />
 
 <div style="display: flex; justify-content:space-between; align-items: center;">
     <div>
-        @Html.ActionLink("Back to Project Details", "Details", "Projects", new { id = Model.ProjectID}, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Project Details", "Details", "Projects", new { id = Model.ProjectID}, new { @class = "btn btn-primary" })
     </div>
 
     <div>
@@ -16,5 +16,36 @@
             <input type="submit" value="Delete" class="btn btn-danger" />
         }
     </div>
+</div>
+
+<h2><strong>Task:</strong> @Model.Name</h2>
+
+<div class="panel panel-@(Model.Priority == Priority.High ? "warning" : "info")">
+    <div class="panel-heading">@Model.Name</div>
+    <div class="panel-body">
+        <div>Completion Percentage : @Model.CompletionPercentage%</div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.CompletionPercentage%;" aria-valuenow="@Model.CompletionPercentage" aria-valuemin="0" aria-valuemax="100">@Model.CompletionPercentage%</div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Developer</th>
+                <th>Created</th>
+                <th>Deadline</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Developer.Email</td>
+                <td>@Model.DateCreated.ToShortDateString()</td>
+                <td>@Model.Deadline.ToShortDateString()</td>
+                <td>@(Model.DateCompleted == null ? "Incomplete" : Model.DateCompleted.ToString())</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
