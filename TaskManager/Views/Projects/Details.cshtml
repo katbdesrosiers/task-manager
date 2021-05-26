@@ -20,10 +20,17 @@
 <h4>Budget: $@Model.Budget</h4>
 
 <h3>Tasks</h3>
-@using (Html.BeginForm("Details", "Projects", new { id = Model.ID, filter = ViewBag.Filter }))
-{
-    <input type="submit" value="Hide Completed" class="btn btn-success" />
-}
+<div style="display: flex;">
+    @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, filter = ViewBag.Filter }))
+    {
+        <input type="submit" value="Hide Completed" class="btn btn-success" />
+    }
+    @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, sort = ViewBag.Sort}))
+    {
+        <input style="margin-left: 10px;" type="submit" value="Priority" class="btn btn-success" />
+    }
+</div>
+
 
 <table class="table">
     <thead>
