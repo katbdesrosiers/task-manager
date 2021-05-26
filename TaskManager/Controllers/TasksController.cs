@@ -21,8 +21,6 @@ namespace TaskManager.Controllers
             return View(user.Tasks);
         }
 
-
-
         [HttpPost]
         public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority,DeveloperID")] ProjectTask task)
         {
@@ -45,8 +43,6 @@ namespace TaskManager.Controllers
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
-
-
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,8 +55,6 @@ namespace TaskManager.Controllers
 
             return View(task);
         }
-        
-
 
         [HttpPost]
         public ActionResult Delete(int? id)
