@@ -40,22 +40,29 @@ namespace TaskManager.Controllers
 			return View(project);
 		}
 
-		public ActionResult Details(int? id, string filter)
-		{
-			if (id == null)
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        public ActionResult Details(int? id, string filter, string sort)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 			var project = db.Projects.Find(id);
 
 			if (project == null)
 				return HttpNotFound();
 
-			var displayProject = project;
+            var displayProject = project;
 
-			ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
+            ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
+			ViewBag.Sort = sort == "highPriority" ? "normal" : "highPriority";
 
 			if (filter == "hide")
-				displayProject.Tasks = displayProject.Tasks.Where(t => t.CompletionPercentage != 100).ToList();
+			{
+				project.Tasks = project.Tasks.Where(t => t.CompletionPercentage != 100).ToList();
+			}
+			else if (sort == "highPriority")
+			{
+				project.Tasks = project.Tasks.OrderByDescending(t => t.Priority).ToList();
+			}
 
 			ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
 			var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
