@@ -1,4 +1,5 @@
 ﻿@model TaskManager.Models.Project
+@using TaskManager.Models;
 @{ ViewBag.Title = "Details"; }
 
 <br />
@@ -51,7 +52,7 @@
     <tbody>
         @foreach (var task in Model.Tasks)
         {
-            <tr>
+            <tr class=@(task.Priority == Priority.High ? "warning" : "")>
                 <td>@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)</td>
                 <td>@task.Developer.Email</td>
                 <td>@task.Deadline.ToShortDateString()</td>
