@@ -71,7 +71,5 @@ namespace TaskManager.Controllers
 
             return RedirectToAction("Details");
         }
-
-
     }
 }

@@ -20,7 +20,7 @@
 <h4>Budget: $@Model.Budget</h4>
 
 <h3>Tasks</h3>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Details", "Projects", new { id = Model.ID, filter = ViewBag.Filter }))
 {
     <input type="submit" value="Hide Completed" class="btn btn-success" />
 }
