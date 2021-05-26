@@ -49,7 +49,7 @@
     </thead>
 
     <tbody>
-        @foreach (var task in Model.Tasks.OrderByDescending(t => t.CompletionPercentage))
+        @foreach (var task in Model.Tasks)
         {
             <tr>
                 <td>@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)</td>
