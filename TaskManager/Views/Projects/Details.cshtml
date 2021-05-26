@@ -26,15 +26,33 @@
 </h4>
 
 <h3>Tasks</h3>
+@using (Html.BeginForm("Details", "Projects", new { id = Model.ID, filter = ViewBag.Filter }))
+{
+    <input type="submit" value="Hide Completed" class="btn btn-success" />
+}
 
-<ul>
-    @foreach (var task in Model.Tasks)
-    {
-        <li>
-            @task.Name <strong>@task.CompletionPercentage</strong>
-        </li>
-    }
-</ul>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayName("Name")</th>
+            <th scope="col">@Html.DisplayName("Developer")</th>
+            <th scope="col">@Html.DisplayName("Deadline")</th>
+            <th scope="col">@Html.DisplayName("Completed")</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var task in Model.Tasks.OrderByDescending(t => t.CompletionPercentage))
+        {
+            <tr>
+                <td>@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)</td>
+                <td>@task.Developer.Email</td>
+                <td>@task.Deadline.ToShortDateString()</td>
+                <td>@task.CompletionPercentage%</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @using (Html.BeginForm("Create", "Tasks", new { ProjectID = Model.ID }))
 {

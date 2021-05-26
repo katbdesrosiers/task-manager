@@ -40,7 +40,7 @@ namespace TaskManager.Controllers
             return View(project);
         }
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string filter)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -49,9 +49,18 @@ namespace TaskManager.Controllers
 
             if (project == null)
                 return HttpNotFound();
+
+            var displayProject = project;
+
+            ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
+
+            if (filter == "hide")
+                displayProject.Tasks = displayProject.Tasks.Where(t => t.CompletionPercentage != 100).ToList();
+
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
             ViewBag.Developers = new SelectList(developers, "Id", "Email");
+
             return View(project);
         }
 
