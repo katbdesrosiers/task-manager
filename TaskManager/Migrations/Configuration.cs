@@ -149,6 +149,23 @@
                     DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
                     CompletionPercentage = 100
                 };
+                ProjectTask projectTask7 = new ProjectTask
+                {
+                    Name = "Test Task 7",
+                    Deadline = DateTime.Now.AddDays(-5),
+                    Priority = Priority.Low,
+                    Project = project3,
+                    DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id
+                };
+                ProjectTask projectTask8 = new ProjectTask
+                {
+                    Name = "Test Task 8",
+                    Deadline = DateTime.Now.AddDays(-3),
+                    Priority = Priority.High,
+                    Project = project4,
+                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
+                    CompletionPercentage = 80
+                };
 
                 db.Projects.AddRange(new List<Project>
                 {
@@ -165,7 +182,9 @@
                     projectTask3,
                     projectTask4,
                     projectTask5,
-                    projectTask6
+                    projectTask6,
+                    projectTask7,
+                    projectTask8
                 });
             }
         }

@@ -72,5 +72,11 @@ namespace TaskManager.Controllers
 
             return RedirectToAction("Details");
         }
+
+        public ActionResult TasksNotFinishedOnTime()
+        {
+            var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
+            return View(tasks);
+        }
     }
 }
