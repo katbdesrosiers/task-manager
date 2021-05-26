@@ -25,7 +25,7 @@ namespace TaskManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Deadline,Priority")] Project project)
+        public ActionResult Create([Bind(Include = "Name,Budget,Deadline,Priority")] Project project)
         {
             var user = CurrentUser();
 

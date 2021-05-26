@@ -15,6 +15,7 @@ namespace TaskManager.Models
         }
 
         public string ManagerID { get; set; }
+        public double Budget { get; set; }
 
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ApplicationUser Manager { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model TaskManager.Models.Project
 @{ ViewBag.Title = "Details"; }
 
-<h2><strong>Project:</strong> @Model.Name</h2>
+<br />
 
 <div style="display: flex; justify-content:space-between; align-items: center;">
     <div>
@@ -15,6 +15,10 @@
         }
     </div>
 </div>
+
+<h2><strong>Project:</strong> @Model.Name</h2>
+<h4>Budget: $@Model.Budget</h4>
+
 <h3>Tasks</h3>
 @using (Html.BeginForm())
 {

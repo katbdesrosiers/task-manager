@@ -7,7 +7,7 @@
 @foreach (var project in Model)
 {
     <div class="panel panel-@project.PriorityClassName">
-        <div class="panel-heading">@Html.ActionLink(project.Name, "Details", new { id = project.ID })<span class="pull-right">@project.Deadline.ToShortDateString()</span></div>
+        <div class="panel-heading">@Html.ActionLink(project.Name, "Details", new { id = project.ID }) - $@project.Budget<span class="pull-right">@project.Deadline.ToShortDateString()</span></div>
         <div class="panel-body">
             <h3>Tasks</h3>
             <div class="threes">
