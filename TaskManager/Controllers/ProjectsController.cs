@@ -78,6 +78,7 @@ namespace TaskManager.Controllers
 		public ActionResult OverBudget()
 		{
 			var overBudgetProjects = db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost);
+
 			return View(overBudgetProjects.ToList());
 		}
 
