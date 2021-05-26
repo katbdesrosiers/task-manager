@@ -17,7 +17,13 @@
 </div>
 
 <h2><strong>Project:</strong> @Model.Name</h2>
-<h4>Budget: $@Model.Budget</h4>
+<h4>
+    Budget: $@Model.Budget
+    @if (Model.TotalCost > 0)
+    {
+    <span>Total Cost: $@Model.TotalCost</span>
+    }
+</h4>
 
 <h3>Tasks</h3>
 
