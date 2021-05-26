@@ -55,7 +55,7 @@ namespace TaskManager.Controllers
 
             return View(task);
         }
-        
+
         [HttpPost]
         public ActionResult Delete(int? id)
         {
