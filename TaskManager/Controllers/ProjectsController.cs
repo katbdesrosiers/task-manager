@@ -35,7 +35,7 @@ namespace TaskManager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
-
+            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View(project);
         }
 
