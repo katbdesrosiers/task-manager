@@ -20,7 +20,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Salary, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.EditorFor(m => m.Salary, new { @class = "form-control", type = "number", value = "0" })
+            @Html.EditorFor(m => m.Salary, new { htmlAttributes = new { @class = "form-control", type = "number", min = "0", value = "0" } })
         </div>
     </div>
     <div class="form-group">
