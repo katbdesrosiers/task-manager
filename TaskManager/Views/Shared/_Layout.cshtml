@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/d5225167a2.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -21,9 +22,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Over Budget Projects", "OverBudget", "Projects")</li>
+                    <li>@Html.ActionLink("Tasks Past Deadline", "NotFinishedOnTime", "Tasks")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
