@@ -61,8 +61,12 @@ namespace TaskManager.Controllers
 			}
 			else if (sort == "highPriority")
 			{
-				project.Tasks = project.Tasks.OrderByDescending(t => t.Priority).ToList();
+				project.Tasks = project.Tasks.OrderByDescending(t => t.Priority).ThenByDescending(t => t.CompletionPercentage).ToList();
 			}
+			else if (String.IsNullOrEmpty(filter) && String.IsNullOrEmpty(sort))
+            {
+				project.Tasks = project.Tasks.OrderByDescending(t => t.CompletionPercentage).ToList();
+            }
 
 			ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
 			var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
