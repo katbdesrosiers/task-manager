@@ -15,6 +15,7 @@ namespace TaskManager.Models
 			Tasks = new HashSet<ProjectTask>();
 			Projects = new HashSet<Project>();
 		}
+		public double Salary { get; set; }
 
 		public virtual ICollection<ProjectTask> Tasks { get; set; }
 		public virtual ICollection<Project> Projects { get; set; }
