@@ -1,0 +1,20 @@
+﻿@model TaskManager.Models.ProjectTask
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2><strong>Task:</strong> @Model.Name</h2>
+
+<div style="display: flex; justify-content:space-between; align-items: center;">
+    <div>
+        @Html.ActionLink("Back to Project Details", "Details", "Projects", new { id = Model.ProjectID}, new { @class = "btn btn-primary" })
+    </div>
+
+    <div>
+        @using (Html.BeginForm("Delete", "Tasks", new { id = Model.ID }))
+        {
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        }
+    </div>
+</div>
+
