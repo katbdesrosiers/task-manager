@@ -8,81 +8,90 @@ using TaskManager.Models;
 
 namespace TaskManager.Controllers
 {
-    [Authorize(Roles = "manager")]
-    public class ProjectsController : TaskManagerController
-    {
-        // GET: Projects
-        public ActionResult Index()
-        {
-            var user = CurrentUser();
-            return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
-        }
-        public ActionResult Create()
-        {
-            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
-            return View();
-        }
+	[Authorize(Roles = "manager")]
+	public class ProjectsController : TaskManagerController
+	{
+		// GET: Projects
+		public ActionResult Index()
+		{
+			var user = CurrentUser();
+			ProjectHelper.CalcTotalCost();
+			return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
+		}
+		public ActionResult Create()
+		{
+			ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
+			return View();
+		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Budget,Deadline,Priority")] Project project)
-        {
-            var user = CurrentUser();
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create([Bind(Include = "Name,Budget,Deadline,Priority")] Project project)
+		{
+			var user = CurrentUser();
 
-            if (ModelState.IsValid)
-            {
-                user.Projects.Add(project);
-                db.SaveChanges();
-                return RedirectToAction("Index"); //change this to redirect to project details
-            }
-            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
-            return View(project);
-        }
+			if (ModelState.IsValid)
+			{
+				user.Projects.Add(project);
+				db.SaveChanges();
+				return RedirectToAction("Index"); //change this to redirect to project details
+			}
+			ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
+			return View(project);
+		}
 
         public ActionResult Details(int? id, string filter, string sort)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var project = db.Projects.Find(id);
+			var project = db.Projects.Find(id);
 
-            if (project == null)
-                return HttpNotFound();
+			if (project == null)
+				return HttpNotFound();
+
+            var displayProject = project;
 
             ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
-            ViewBag.Sort = sort == "highPriority" ? "normal" : "highPriority";
+			ViewBag.Sort = sort == "highPriority" ? "normal" : "highPriority";
 
-            if (filter == "hide")
-            {
-                project.Tasks = project.Tasks.Where(t => t.CompletionPercentage != 100).ToList();
-            }
-            else if (sort == "highPriority")
-            {
-                project.Tasks = project.Tasks.OrderByDescending(t => t.Priority).ToList();
-            }
+			if (filter == "hide")
+			{
+				project.Tasks = project.Tasks.Where(t => t.CompletionPercentage != 100).ToList();
+			}
+			else if (sort == "highPriority")
+			{
+				project.Tasks = project.Tasks.OrderByDescending(t => t.Priority).ToList();
+			}
 
-            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
-            var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
-            ViewBag.Developers = new SelectList(developers, "Id", "Email");
+			ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
+			var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
+			ViewBag.Developers = new SelectList(developers, "Id", "Email");
 
-            return View(project);
-        }
+			return View(project);
+		}
 
-        [HttpPost]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+		public ActionResult OverBudget()
+		{
+			var overBudgetProjects = db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost);
+			return View(overBudgetProjects.ToList());
+		}
 
-            var project = db.Projects.Find(id);
+		[HttpPost]
+		public ActionResult Delete(int? id)
+		{
+			if (id == null)
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            if (project == null)
-                return HttpNotFound();
+			var project = db.Projects.Find(id);
 
-            db.Projects.Remove(project);
-            db.SaveChanges();
+			if (project == null)
+				return HttpNotFound();
 
-            return RedirectToAction("Index");//change this to go to dashboard
-        }
-    }
+			db.Projects.Remove(project);
+			db.SaveChanges();
+
+			return RedirectToAction("Index");//change this to go to dashboard
+		}
+	}
 }

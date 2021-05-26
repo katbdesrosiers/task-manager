@@ -16,7 +16,8 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            
+
+            ProjectHelper.CalcTotalCost();
             return View(user.Tasks);
         }
 
