@@ -92,7 +92,8 @@
                     Deadline = DateTime.Now.AddDays(45),
                     Priority = Priority.Low,
                     Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
-                    Budget = 11000
+                    Budget = 11000,
+                    DateCompleted = DateTime.Now.AddDays(15),
                 };
 
                 // Project Tasks
@@ -145,7 +146,8 @@
                     Deadline = DateTime.Now.AddDays(30),
                     Priority = Priority.High,
                     Project = project4,
-                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id
+                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
+                    CompletionPercentage = 100
                 };
 
                 db.Projects.AddRange(new List<Project>
