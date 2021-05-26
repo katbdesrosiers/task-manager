@@ -210,6 +210,14 @@
     <Compile Include="Migrations\202105252057514_RefactorProjectAndTaskModels.designer.cs">
       <DependentUpon>202105252057514_RefactorProjectAndTaskModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105260216015_MakeManagerIDNotRequired.cs" />
+    <Compile Include="Migrations\202105260216015_MakeManagerIDNotRequired.designer.cs">
+      <DependentUpon>202105260216015_MakeManagerIDNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105260325447_AddBudgetAndSalary.cs" />
+    <Compile Include="Migrations\202105260325447_AddBudgetAndSalary.designer.cs">
+      <DependentUpon>202105260325447_AddBudgetAndSalary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ScheduledItem.cs" />
@@ -325,6 +333,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105252057514_RefactorProjectAndTaskModels.resx">
       <DependentUpon>202105252057514_RefactorProjectAndTaskModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105260216015_MakeManagerIDNotRequired.resx">
+      <DependentUpon>202105260216015_MakeManagerIDNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105260325447_AddBudgetAndSalary.resx">
+      <DependentUpon>202105260325447_AddBudgetAndSalary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -48,7 +48,8 @@
                     {
                         Email = person.Key,
                         UserName = person.Key,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        Salary = 400
                     };
 
                     Membership.CreateUser(user, "P3nguin!");
@@ -66,28 +67,32 @@
                     Name = "Test Project 1",
                     Deadline = DateTime.Now.AddDays(20),
                     Priority = Priority.High,
-                    Manager = db.Users.First(u => u.Email == "manager@gmail.com")
+                    Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
+                    Budget = 5000
                 };
                 Project project2 = new Project
                 {
                     Name = "Test Project 2",
                     Deadline = DateTime.Now.AddDays(10),
                     Priority = Priority.Low,
-                    Manager = db.Users.First(u => u.Email == "manager@gmail.com")
+                    Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
+                    Budget = 2200
                 };
                 Project project3 = new Project
                 {
                     Name = "Test Project 3",
                     Deadline = DateTime.Now.AddDays(60),
                     Priority = Priority.High,
-                    Manager = db.Users.First(u => u.Email == "manager@gmail.com")
+                    Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
+                    Budget = 15000
                 };
                 Project project4 = new Project
                 {
                     Name = "Test Project 4",
                     Deadline = DateTime.Now.AddDays(45),
                     Priority = Priority.Low,
-                    Manager = db.Users.First(u => u.Email == "manager@gmail.com")
+                    Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
+                    Budget = 11000
                 };
 
                 // Project Tasks

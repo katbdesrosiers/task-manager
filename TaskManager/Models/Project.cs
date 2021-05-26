@@ -14,8 +14,8 @@ namespace TaskManager.Models
             Tasks = new HashSet<ProjectTask>();
         }
 
-        [Required]
         public string ManagerID { get; set; }
+        public double Budget { get; set; }
 
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ApplicationUser Manager { get; set; }

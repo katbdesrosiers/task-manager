@@ -17,7 +17,6 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
-
         public ActionResult Create()
         {
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
@@ -26,7 +25,7 @@ namespace TaskManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Deadline,Priority")] Project project)
+        public ActionResult Create([Bind(Include = "Name,Budget,Deadline,Priority")] Project project)
         {
             var user = CurrentUser();
 
@@ -36,7 +35,7 @@ namespace TaskManager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
-
+            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View(project);
         }
 
