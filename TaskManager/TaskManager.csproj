@@ -295,6 +295,7 @@
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\Tasks\Details.cshtml" />
     <Content Include="Views\Projects\OverBudget.cshtml" />
+    <Content Include="Views\Projects\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
