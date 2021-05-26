@@ -146,7 +146,8 @@
                     Deadline = DateTime.Now.AddDays(30),
                     Priority = Priority.High,
                     Project = project4,
-                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id
+                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
+                    CompletionPercentage = 100
                 };
 
                 db.Projects.AddRange(new List<Project>
