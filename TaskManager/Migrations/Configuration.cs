@@ -103,6 +103,7 @@
                     Deadline = DateTime.Now.AddDays(10),
                     Priority = Priority.Low,
                     Project = project1,
+                    CompletionPercentage = 23,
                     DeveloperID = db.Users.First(u => u.Email == "chows@gmail.com").Id
                 };
                 ProjectTask projectTask2 = new ProjectTask
@@ -119,6 +120,7 @@
                     Deadline = DateTime.Now.AddDays(5),
                     Priority = Priority.Low,
                     Project = project2,
+                    CompletionPercentage = 66,
                     DeveloperID = db.Users.First(u => u.Email == "chows@gmail.com").Id
                 };
                 ProjectTask projectTask4 = new ProjectTask
