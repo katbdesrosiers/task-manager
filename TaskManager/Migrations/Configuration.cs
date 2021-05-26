@@ -92,7 +92,8 @@
                     Deadline = DateTime.Now.AddDays(45),
                     Priority = Priority.Low,
                     Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
-                    Budget = 11000
+                    Budget = 11000,
+                    DateCompleted = DateTime.Now.AddDays(15),
                 };
 
                 // Project Tasks

@@ -218,6 +218,10 @@
     <Compile Include="Migrations\202105260325447_AddBudgetAndSalary.designer.cs">
       <DependentUpon>202105260325447_AddBudgetAndSalary.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.cs" />
+    <Compile Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.designer.cs">
+      <DependentUpon>202105261805167_AddTotalCostAndCalcCostFunction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ScheduledItem.cs" />
@@ -339,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105260325447_AddBudgetAndSalary.resx">
       <DependentUpon>202105260325447_AddBudgetAndSalary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.resx">
+      <DependentUpon>202105261805167_AddTotalCostAndCalcCostFunction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
