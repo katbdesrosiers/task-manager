@@ -23,8 +23,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Over Budget Projects", "OverBudget", "Projects")</li>
-                    <li>@Html.ActionLink("Tasks Past Deadline", "NotFinishedOnTime", "Tasks")</li>
+                    @if (User.IsInRole("manager"))
+                    {
+                        <li>@Html.ActionLink("Over Budget Projects", "OverBudget", "Projects")</li>
+                        <li>@Html.ActionLink("Tasks Past Deadline", "NotFinishedOnTime", "Tasks")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
