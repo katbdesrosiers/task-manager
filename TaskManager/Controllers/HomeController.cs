@@ -12,12 +12,11 @@ namespace TaskManager.Controllers
 	{
 		public ActionResult Index() //change method to check role of user logged in
 		{
-			var user = CurrentUser();
-			if(Membership.UserInRole(user.Id, "manager"))
+			if(User.IsInRole("manager"))
             {
 				return RedirectToAction("Index", "Projects");
             }
-			else if(Membership.UserInRole(user.Id, "developer"))
+			else if(User.IsInRole("developer"))
             {
 				return RedirectToAction("Index", "Tasks");
 			}
