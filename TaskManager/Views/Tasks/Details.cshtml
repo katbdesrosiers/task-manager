@@ -25,7 +25,7 @@
 
 <h2><strong>Task:</strong> @Model.Name</h2>
 
-<div class="panel panel-@(Model.Priority == Priority.High ? "warning" : "info")">
+<div class="panel panel-@(Model.PriorityClassName)">
     <div class="panel-heading">@Model.Name</div>
     <div class="panel-body">
         <div>Completion Percentage : @Model.CompletionPercentage%</div>
@@ -61,7 +61,7 @@
         using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
         {
             <label>Percentage (0 - 100): <span id="percent"></span>%</label>
-            <input type="range" min="0" max="100" value=@Model.CompletionPercentage class="slider" id="slider"/>
+            @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class="slider", id="slider"}})
             <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;"/>
         }
     }
