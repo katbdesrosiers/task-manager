@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class MakeManagerIDNotRequired : DbMigration
     {
         public override void Up()
@@ -13,7 +13,7 @@
             CreateIndex("dbo.Projects", "ManagerID");
             AddForeignKey("dbo.Projects", "ManagerID", "dbo.AspNetUsers", "Id");
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Projects", "ManagerID", "dbo.AspNetUsers");

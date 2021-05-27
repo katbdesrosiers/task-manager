@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddDateCreatedAndDeadlineToProjectAndTask : DbMigration
     {
         public override void Up()
@@ -14,7 +14,7 @@
             AddColumn("dbo.ProjectTasks", "Deadline", c => c.DateTime(nullable: false));
             AddColumn("dbo.ProjectTasks", "DateCompleted", c => c.DateTime());
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.ProjectTasks", "DateCompleted");

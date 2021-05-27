@@ -7,28 +7,28 @@ using TaskManager.Models;
 
 namespace TaskManager.Controllers
 {
-	[Authorize]
-	public class HomeController : TaskManagerController 
-	{
-		public ActionResult Index() //change method to check role of user logged in
-		{
-			if(User.IsInRole("manager"))
+    [Authorize]
+    public class HomeController : TaskManagerController
+    {
+        public ActionResult Index() //change method to check role of user logged in
+        {
+            if (User.IsInRole("manager"))
             {
-				return RedirectToAction("Index", "Projects");
+                return RedirectToAction("Index", "Projects");
             }
-			else if(User.IsInRole("developer"))
+            else if (User.IsInRole("developer"))
             {
-				return RedirectToAction("Index", "Tasks");
-			}
-			else
-            {
-				return RedirectToAction("Users", "Manage");
+                return RedirectToAction("Index", "Tasks");
             }
-		}
+            else
+            {
+                return RedirectToAction("Users", "Manage");
+            }
+        }
 
-		public ActionResult About()
-		{
-			return View();
-		}
-	}
+        public ActionResult About()
+        {
+            return View();
+        }
+    }
 }

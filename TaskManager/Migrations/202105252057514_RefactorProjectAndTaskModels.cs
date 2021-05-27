@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class RefactorProjectAndTaskModels : DbMigration
     {
         public override void Up()
@@ -16,9 +16,9 @@
             CreateIndex("dbo.Projects", "ManagerID");
             CreateIndex("dbo.ProjectTasks", "DeveloperID");
             AddForeignKey("dbo.Projects", "ManagerID", "dbo.AspNetUsers", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.ProjectTasks", "DeveloperID", "dbo.AspNetUsers", "Id", cascadeDelete: false );
+            AddForeignKey("dbo.ProjectTasks", "DeveloperID", "dbo.AspNetUsers", "Id", cascadeDelete: false);
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.ProjectTasks", "DeveloperID", "dbo.AspNetUsers");

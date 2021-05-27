@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class TasksHaveSingleDeveloper : DbMigration
     {
         public override void Up()
@@ -16,18 +16,18 @@
             AddForeignKey("dbo.ProjectTasks", "DeveloperID", "dbo.AspNetUsers", "Id");
             DropTable("dbo.ProjectTaskApplicationUsers");
         }
-        
+
         public override void Down()
         {
             CreateTable(
                 "dbo.ProjectTaskApplicationUsers",
                 c => new
-                    {
-                        ProjectTask_ID = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                    })
+                {
+                    ProjectTask_ID = c.Int(nullable: false),
+                    ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                })
                 .PrimaryKey(t => new { t.ProjectTask_ID, t.ApplicationUser_Id });
-            
+
             DropForeignKey("dbo.ProjectTasks", "DeveloperID", "dbo.AspNetUsers");
             DropIndex("dbo.ProjectTasks", new[] { "DeveloperID" });
             DropColumn("dbo.ProjectTasks", "DeveloperID");

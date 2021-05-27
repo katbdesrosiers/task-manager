@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class ChangeRelationshipBetweenUserAndProject : DbMigration
     {
         public override void Up()
@@ -19,18 +19,18 @@
             AddForeignKey("dbo.Projects", "ManagerID", "dbo.AspNetUsers", "Id");
             DropTable("dbo.ApplicationUserProjects");
         }
-        
+
         public override void Down()
         {
             CreateTable(
                 "dbo.ApplicationUserProjects",
                 c => new
-                    {
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                        Project_ID = c.Int(nullable: false),
-                    })
+                {
+                    ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                    Project_ID = c.Int(nullable: false),
+                })
                 .PrimaryKey(t => new { t.ApplicationUser_Id, t.Project_ID });
-            
+
             DropForeignKey("dbo.Projects", "ManagerID", "dbo.AspNetUsers");
             DropIndex("dbo.Projects", new[] { "ManagerID" });
             DropPrimaryKey("dbo.ProjectTaskApplicationUsers");
