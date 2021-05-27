@@ -139,6 +139,7 @@ namespace TaskManager.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Roles = new SelectList(Membership.GetAllRoles());
             return View();
         }
 
@@ -155,7 +156,7 @@ namespace TaskManager.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    Membership.AddUserToRole(user.Id, "developer");
+                    Membership.AddUserToRole(user.Id, model.Role);
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 

@@ -80,6 +80,12 @@ namespace TaskManager.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name = "I am a")]
+        public string Role { get; set; }
+
+        [Required]
+        [Display(Name = "Salary")]
         public double Salary { get; set; }
     }
 
