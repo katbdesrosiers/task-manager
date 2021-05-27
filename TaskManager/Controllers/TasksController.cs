@@ -72,5 +72,36 @@ namespace TaskManager.Controllers
 
             return RedirectToAction("Details");
         }
+
+        public ActionResult TasksNotFinishedOnTime()
+        {
+            var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
+            return View(tasks);
+        }
+
+        public ActionResult UpdatePercent(int? id, int CompletionPercentage)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var task = db.Tasks.Find(id);
+
+            if (task == null)
+                return HttpNotFound();
+
+            task.CompletionPercentage = CompletionPercentage;
+
+            if (CompletionPercentage == 100)
+            {
+                task.DateCompleted = DateTime.Now;
+            }
+            else
+            {
+                task.DateCompleted = null;
+            }
+            db.SaveChanges();
+
+            return View("Details", task);
+        }
     }
 }

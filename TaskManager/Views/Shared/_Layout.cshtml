@@ -26,7 +26,7 @@
                     @if (User.IsInRole("manager"))
                     {
                         <li>@Html.ActionLink("Over Budget Projects", "OverBudget", "Projects")</li>
-                        <li>@Html.ActionLink("Tasks Past Deadline", "NotFinishedOnTime", "Tasks")</li>
+                        <li>@Html.ActionLink("Tasks Past Deadline", "TasksNotFinishedOnTime", "Tasks")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
