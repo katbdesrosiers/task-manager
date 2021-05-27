@@ -1,20 +1,79 @@
 ﻿@model TaskManager.Models.ProjectTask
+@using TaskManager.Models;
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Details";
 }
+<br />
+
+@if (TaskManager.Models.Membership.UserInRole(User.Identity.GetUserId(), "manager"))
+{
+    <div style="display: flex; justify-content:space-between; align-items: center;">
+        <div>
+            @Html.ActionLink("Project Details", "Details", "Projects", new { id = Model.ProjectID }, new { @class = "btn btn-primary" })
+        </div>
+
+        <div>
+            @using (Html.BeginForm("Delete", "Tasks", new { id = Model.ID }))
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            }
+        </div>
+    </div>
+}
+
 
 <h2><strong>Task:</strong> @Model.Name</h2>
 
-<div style="display: flex; justify-content:space-between; align-items: center;">
-    <div>
-        @Html.ActionLink("Back to Project Details", "Details", "Projects", new { id = Model.ProjectID}, new { @class = "btn btn-primary" })
+<div class="panel panel-@(Model.PriorityClassName)">
+    <div class="panel-heading">@Model.Name</div>
+    <div class="panel-body">
+        <div>Completion Percentage : @Model.CompletionPercentage%</div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: @Model.CompletionPercentage%;" aria-valuenow="@Model.CompletionPercentage" aria-valuemin="0" aria-valuemax="100">@Model.CompletionPercentage%</div>
+        </div>
     </div>
 
-    <div>
-        @using (Html.BeginForm("Delete", "Tasks", new { id = Model.ID }))
-        {
-            <input type="submit" value="Delete" class="btn btn-danger" />
-        }
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Developer</th>
+                <th>Created</th>
+                <th>Deadline</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Developer.Email</td>
+                <td>@Model.DateCreated.ToShortDateString()</td>
+                <td>@Model.Deadline.ToShortDateString()</td>
+                <td>@(Model.DateCompleted == null ? "Incomplete" : Model.DateCompleted.ToString())</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<div>
+    @if (User.Identity.GetUserId() == Model.DeveloperID)
+    {
+        <h4>Update Completion Percentage:</h4>
+        using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
+        {
+            <label>Percentage (0 - 100): <span id="percent"></span>%</label>
+            @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class="slider", id="slider"}})
+            <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;"/>
+        }
+    }
+</div>
+
+<script>
+    let slider = document.getElementById("slider");
+    let output = document.getElementById("percent");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>
 
