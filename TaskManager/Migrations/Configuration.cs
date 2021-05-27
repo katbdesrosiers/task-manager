@@ -47,7 +47,7 @@
                     var user = new ApplicationUser
                     {
                         Email = person.Key,
-                        UserName = person.Key,
+                        UserName = person.Key.Substring(0, person.Key.IndexOf('@')),
                         EmailConfirmed = true,
                         Salary = 400
                     };
