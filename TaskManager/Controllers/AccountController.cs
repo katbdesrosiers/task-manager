@@ -152,7 +152,7 @@ namespace TaskManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Salary = model.Salary };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Salary = model.Salary };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -170,6 +170,8 @@ namespace TaskManager.Controllers
                 }
                 AddErrors(result);
             }
+
+            ViewBag.Roles = new SelectList(Membership.GetAllRoles());
 
             // If we got this far, something failed, redisplay form
             return View(model);
