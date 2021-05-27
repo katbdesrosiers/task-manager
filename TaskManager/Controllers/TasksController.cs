@@ -8,11 +8,10 @@ using TaskManager.Models;
 
 namespace TaskManager.Controllers
 {
-    [Authorize]
     public class TasksController : TaskManagerController
     {
         // GET: Tasks
-
+        [Authorize(Roles = "developer")]
         public ActionResult Index()
         {
             var user = CurrentUser();
@@ -22,6 +21,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "manager")]
         public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority,DeveloperID")] ProjectTask task)
         {
             var project = db.Projects.Find(task.ProjectID);
@@ -42,7 +42,7 @@ namespace TaskManager.Controllers
 
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
-
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -57,6 +57,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -73,6 +74,7 @@ namespace TaskManager.Controllers
             return RedirectToAction("Details");
         }
 
+        [Authorize(Roles = "manager")]
         public ActionResult TasksNotFinishedOnTime()
         {
             var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
@@ -80,6 +82,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "developer")]
         public ActionResult UpdatePercent(int? id, int CompletionPercentage)
         {
             if (id == null)
@@ -106,6 +109,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "developer")]
         public ActionResult Comment([Bind(Include ="Content,TaskID,DeveloperID")] Comment comment)
         {
             var task = db.Tasks.Find(comment.TaskID);
