@@ -75,7 +75,7 @@ namespace TaskManager.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,6 +139,7 @@ namespace TaskManager.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.Roles = new SelectList(Membership.GetAllRoles());
             return View();
         }
 
@@ -151,11 +152,11 @@ namespace TaskManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Salary = model.Salary };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email, Salary = model.Salary, EmailConfirmed = true };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    Membership.AddUserToRole(user.Id, "developer");
+                    Membership.AddUserToRole(user.Id, model.Role);
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -169,6 +170,8 @@ namespace TaskManager.Controllers
                 }
                 AddErrors(result);
             }
+
+            ViewBag.Roles = new SelectList(Membership.GetAllRoles());
 
             // If we got this far, something failed, redisplay form
             return View(model);
