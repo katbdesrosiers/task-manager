@@ -54,26 +54,51 @@
     </table>
 </div>
 
+<h4>Comments:</h4>
+@if (Model.Comments.Count == 0)
+{
+    <div>No Comments</div>
+}
+<ul class="list-group">
+    @foreach (var comment in Model.Comments)
+    {
+        <li class="list-group-item">@comment.Content</li>
+    }
+</ul>
+
 <div>
     @if (User.Identity.GetUserId() == Model.DeveloperID)
     {
-        <h4>Update Completion Percentage:</h4>
-        using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
-        {
-            <label>Percentage (0 - 100): <span id="percent"></span>%</label>
-            @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class = "slider", id = "slider" } })
-            <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;" />
-        }
-
-        if (Model.CompletionPercentage == 100)
-        {
-            <h4>Comment:</h4>
-            using (Html.BeginForm("Comment", "Tasks", new { id = Model.ID }))
-            {
-                @Html.TextArea("Comment") <br />
-                <input type="submit" value="Submit" class="btn btn-primary"/>
-            }
-        }
+        <div style="display: flex; justify-content: space-between;">
+            <div style="width: 49%;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Update Completion Percentage</div>
+                    <div class="panel-body">
+                        @using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
+                        {
+                            <label>Percentage: <span id="percent"></span>%</label>
+                            @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class = "slider", id = "slider", style = "max-width: 900px; width: 100%;" } })
+                            <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div style="width: 49%;">
+                @if (Model.CompletionPercentage == 100)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Comment</div>
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Comment", "Tasks", new { TaskID = Model.ID, DeveloperID = User.Identity.GetUserId() }))
+                            {
+                                @Html.TextArea("Content", new { style = "max-width: 900px; width: 100%;"}) <br />
+                                <input type="submit" value="Submit" class="btn btn-primary" style="margin-top: 4px;" />
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     }
 </div>
 

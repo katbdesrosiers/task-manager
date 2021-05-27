@@ -78,6 +78,7 @@ namespace TaskManager.Controllers
             var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
             return View(tasks);
         }
+
         [HttpPost]
         public ActionResult UpdatePercent(int? id, int CompletionPercentage)
         {
@@ -102,6 +103,27 @@ namespace TaskManager.Controllers
             db.SaveChanges();
 
             return View("Details", task);
+        }
+
+        [HttpPost]
+        public ActionResult Comment([Bind(Include ="Content,TaskID,DeveloperID")] Comment comment)
+        {
+            var task = db.Tasks.Find(comment.TaskID);
+
+            if (task == null)
+                return HttpNotFound();
+
+            if (ModelState.IsValid)
+            {
+                task.Comments.Add(comment);
+                db.SaveChanges();
+            }
+            else
+            {
+                TempData["Error"] = "Your comment is missing something";
+            }
+
+            return RedirectToAction("Details", "Tasks", new { id = comment.TaskID });
         }
     }
 }
