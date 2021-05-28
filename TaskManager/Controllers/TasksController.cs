@@ -12,11 +12,13 @@ namespace TaskManager.Controllers
     public class TasksController : TaskManagerController
     {
         // GET: Tasks
+        public TaskHelper taskHelper = new TaskHelper();
 
         public ActionResult Index()
         {
             var user = CurrentUser();
 
+            TaskHelper.CheckTaskDeadline(user, db);
             ProjectHelper.CalcTotalCost();
             return View(user.Tasks);
         }
@@ -31,8 +33,9 @@ namespace TaskManager.Controllers
 
             if (ModelState.IsValid)
             {
-                project.Tasks.Add(task);
-                db.SaveChanges();
+                TaskHelper.Add(project, task, db);
+                //project.Tasks.Add(task);
+                //db.SaveChanges();
             }
             else
             {
