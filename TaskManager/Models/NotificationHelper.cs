@@ -6,9 +6,9 @@ using TaskManager.Controllers;
 
 namespace TaskManager.Models
 {
-    public class NotificationHelper
+    public class NotificationHelper : Helper
     {
-        public static void MarkRead(ApplicationUser user, ApplicationDbContext db)
+        public void MarkRead(ApplicationUser user)
         {
             foreach (var notif in user.Notifications)
                 notif.Read = true;

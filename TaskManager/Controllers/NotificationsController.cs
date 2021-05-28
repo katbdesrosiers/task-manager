@@ -14,7 +14,7 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            //NotificationHelper.MarkRead(user, db);
+            // notificationHelper.MarkRead(user, db);
             return View(user.Notifications);
         }
     }
