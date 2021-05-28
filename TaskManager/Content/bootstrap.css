@@ -6095,7 +6095,7 @@ a.label:focus {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    background-color: #777777;
+    background-color: red;
     border-radius: 10px;
 }
 
@@ -8269,3 +8269,7 @@ button.close {
     }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.text-align-mid {
+    vertical-align: middle;
+}

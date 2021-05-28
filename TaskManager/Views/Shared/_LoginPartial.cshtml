@@ -7,8 +7,12 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="@Url.Action("Notifications", "Projects")">
+                <a href="@Url.Action("Index", "Notifications")">
                     <i class='fas fa-bell'></i>
+                    @if (ViewBag.NotificationCount != 0)
+                    {
+                        <span class="badge">@ViewBag.NotificationCount</span>
+                    }
                 </a>
             </li>
             <li>

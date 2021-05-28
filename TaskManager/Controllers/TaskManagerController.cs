@@ -11,12 +11,19 @@ namespace TaskManager.Controllers
 {
     public class TaskManagerController : Controller
     {
-        public ApplicationDbContext db = new ApplicationDbContext();
-        private UserManager<ApplicationUser> userManager;
+        public ApplicationDbContext db { get; set; }
+        public TaskHelper taskHelper { get; set; }
+        public ProjectHelper projectHelper { get; set; }
+        public NotificationHelper notificationHelper { get; set; }
+        private UserManager<ApplicationUser> userManager { get; set; }
 
         public TaskManagerController()
         {
+            db = new ApplicationDbContext();
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            taskHelper = Helper.Task(db);
+            projectHelper = Helper.Project(db);
+            notificationHelper = Helper.Notification(db);
         }
 
         public ApplicationUser CurrentUser()

@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ExamplesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\TaskManagerController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -226,8 +227,14 @@
     <Compile Include="Migrations\202105281453165_AddCommentClass.designer.cs">
       <DependentUpon>202105281453165_AddCommentClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105281458066_AddNotificationModelAndController.cs" />
+    <Compile Include="Migrations\202105281458066_AddNotificationModelAndController.designer.cs">
+      <DependentUpon>202105281458066_AddNotificationModelAndController.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationHelper.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ScheduledItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -236,6 +243,7 @@
     <Compile Include="Models\ProjectHelper.cs" />
     <Compile Include="Models\ProjectTask.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\TaskHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -303,6 +311,7 @@
     <Content Include="Views\Projects\OverBudget.cshtml" />
     <Content Include="Views\Tasks\TasksNotFinishedOnTime.cshtml" />
     <Content Include="Views\Projects\Notifications.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -357,6 +366,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105281453165_AddCommentClass.resx">
       <DependentUpon>202105281453165_AddCommentClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105281458066_AddNotificationModelAndController.resx">
+      <DependentUpon>202105281458066_AddNotificationModelAndController.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,9 +15,11 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
+            taskHelper.CheckTaskDeadline(user);
+            projectHelper.CalcTotalCost();
 
-            TaskHelper.CheckTaskDeadline(user, db);
-            ProjectHelper.CalcTotalCost();
+            ViewBag.NotificationCount = user.Notifications.Count();
+
             return View(user.Tasks);
         }
 
@@ -32,14 +34,14 @@ namespace TaskManager.Controllers
 
             if (ModelState.IsValid)
             {
-                TaskHelper.Add(project, task, db);
+                taskHelper.Add(task, project);
             }
             else
             {
                 TempData["Error"] = "Your task is missing something";
             }
 
-
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
         [Authorize]
@@ -53,6 +55,7 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View(task);
         }
 
@@ -78,6 +81,8 @@ namespace TaskManager.Controllers
         public ActionResult TasksNotFinishedOnTime()
         {
             var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
+
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View(tasks);
         }
 
@@ -105,6 +110,7 @@ namespace TaskManager.Controllers
             }
             db.SaveChanges();
 
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View("Details", task);
         }
 

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TaskManager.Models.Notification>
+
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<h2>All Notifications</h2>
+
+@foreach (var item in Model)
+{<div class="well well-lg">
+
+        @if (item.Read == false)
+        {
+            <span class="label label-danger">NEW</span>
+            if (item.Project != null)
+            {
+                @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "text-danger h4 text-align-mid" })
+            }
+            else
+            {
+                @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "text-danger h4" })
+            }
+        }
+        else
+        {
+            if (item.Project != null)
+            {
+                @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "h4" })
+            }
+            else
+            {
+                @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "h4" })
+            }
+        }
+    </div>
+}

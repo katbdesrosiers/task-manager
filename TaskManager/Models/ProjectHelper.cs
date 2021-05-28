@@ -6,17 +6,15 @@ using System.Web.Mvc;
 
 namespace TaskManager.Models
 {
-    [Authorize(Roles = "manager")]
-    public class ProjectHelper
+    public class ProjectHelper : Helper
     {
-        private static ApplicationDbContext db = new ApplicationDbContext();
-
-        public static void AddProject()
+        public void Add(Project project, ApplicationUser user)
         {
-
+            user.Projects.Add(project);
+            db.SaveChanges();
         }
 
-        public static void CalcTotalCost()
+        public void CalcTotalCost()
         {
             var completeProjects = db.Projects.Where(p => p.DateCompleted != null).ToList();
 
