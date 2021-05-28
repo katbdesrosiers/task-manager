@@ -15,7 +15,7 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            ProjectHelper.CalcTotalCost();
+            projectHelper.CalcTotalCost();
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
         public ActionResult Create()
@@ -32,8 +32,7 @@ namespace TaskManager.Controllers
 
             if (ModelState.IsValid)
             {
-                user.Projects.Add(project);
-                db.SaveChanges();
+                projectHelper.Add(project, user);
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
