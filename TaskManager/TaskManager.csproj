@@ -222,6 +222,10 @@
     <Compile Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.designer.cs">
       <DependentUpon>202105261805167_AddTotalCostAndCalcCostFunction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105280050176_addDeadlineNotification.cs" />
+    <Compile Include="Migrations\202105280050176_addDeadlineNotification.designer.cs">
+      <DependentUpon>202105280050176_addDeadlineNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -232,6 +236,7 @@
     <Compile Include="Models\ProjectHelper.cs" />
     <Compile Include="Models\ProjectTask.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\TaskHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -349,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.resx">
       <DependentUpon>202105261805167_AddTotalCostAndCalcCostFunction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105280050176_addDeadlineNotification.resx">
+      <DependentUpon>202105280050176_addDeadlineNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
