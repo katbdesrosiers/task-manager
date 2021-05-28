@@ -221,6 +221,30 @@
                     notif3,
                     notif4
                 });
+
+                // Comments
+
+                Comment comment1 = new Comment
+                {
+                    Task = projectTask1,
+                    Developer = db.Users.First(u => u.Email == "chows@gmail.com"),
+                    Urgent = true,
+                    Content = "Test comment 1",
+                };
+                Comment comment2 = new Comment
+                {
+                    Task = projectTask2,
+                    Developer = db.Users.First(u => u.Email == "braden@gmail.com"),
+                    Urgent = false,
+                    Content = "Test comment 2",
+                };
+                Comment comment3 = new Comment
+                {
+                    Task = projectTask7,
+                    Developer = db.Users.First(u => u.Email == "elizabeth@gmail.com"),
+                    Urgent = false,
+                    Content = "Test comment 3",
+                };
             }
         }
     }
