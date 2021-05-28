@@ -14,6 +14,7 @@ namespace TaskManager.Controllers
         public ApplicationDbContext db { get; set; }
         public TaskHelper taskHelper { get; set; }
         public ProjectHelper projectHelper { get; set; }
+        public NotificationHelper notificationHelper { get; set; }
         private UserManager<ApplicationUser> userManager { get; set; }
 
         public TaskManagerController()
@@ -22,6 +23,7 @@ namespace TaskManager.Controllers
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             taskHelper = Helper.Task(db);
             projectHelper = Helper.Project(db);
+            notificationHelper = Helper.Notification(db);
         }
 
         public ApplicationUser CurrentUser()

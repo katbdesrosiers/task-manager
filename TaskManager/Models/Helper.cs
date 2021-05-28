@@ -27,5 +27,14 @@ namespace TaskManager.Models
 
             return helper;
         }
+
+        public static NotificationHelper Notification(ApplicationDbContext context)
+        {
+            var helper = new NotificationHelper();
+
+            helper.db = context;
+
+            return helper;
+        }
     }
 }
