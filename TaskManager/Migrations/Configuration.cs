@@ -235,16 +235,23 @@
                 {
                     Task = projectTask2,
                     Developer = db.Users.First(u => u.Email == "braden@gmail.com"),
-                    Urgent = false,
+                    Urgent = true,
                     Content = "Test comment 2",
                 };
                 Comment comment3 = new Comment
                 {
-                    Task = projectTask7,
-                    Developer = db.Users.First(u => u.Email == "elizabeth@gmail.com"),
+                    Task = projectTask6,
+                    Developer = db.Users.First(u => u.Email == "braden@gmail.com"),
                     Urgent = false,
                     Content = "Test comment 3",
                 };
+
+                db.Comments.AddRange(new List<Comment>
+                {
+                    comment1,
+                    comment2,
+                    comment3
+                });
             }
         }
     }
