@@ -211,7 +211,7 @@
                 {
                     Project = project2,
                     User = db.Users.First(u => u.Email == "manager@gmail.com"),
-                    Content = $"Project '{project2.Name}' has passed its deadline with unfinished tasks.!",
+                    Content = $"Project '{project2.Name}' has passed its deadline with unfinished tasks!",
                 };
 
                 db.Notifications.AddRange(new List<Notification>

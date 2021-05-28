@@ -1,7 +1,24 @@
-﻿
+﻿@model IEnumerable<TaskManager.Models.Notification>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Notifications";
 }
 
-<h2>Index</h2>
+<h2>Notifications</h2>
 
+@foreach (var item in Model)
+{
+    if (item.Read == false)
+    {
+        <div class="well alert alert-danger">
+            <span class="label label-danger">NEW</span>
+            @item.Content
+        </div>
+    }
+    else
+    {
+        <div class="well">
+            @item.Content
+        </div>
+    }
+}
