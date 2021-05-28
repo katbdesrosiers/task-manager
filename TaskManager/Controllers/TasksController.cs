@@ -12,7 +12,6 @@ namespace TaskManager.Controllers
     public class TasksController : TaskManagerController
     {
         // GET: Tasks
-        public TaskHelper taskHelper = new TaskHelper();
 
         public ActionResult Index()
         {
@@ -34,8 +33,6 @@ namespace TaskManager.Controllers
             if (ModelState.IsValid)
             {
                 TaskHelper.Add(project, task, db);
-                //project.Tasks.Add(task);
-                //db.SaveChanges();
             }
             else
             {
