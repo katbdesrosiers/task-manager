@@ -48,8 +48,8 @@
                     {
                         Email = person.Key,
                         UserName = person.Key.Substring(0, person.Key.IndexOf('@')),
-                        EmailConfirmed = true,
-                        Salary = 400
+                        LockoutEnabled = true,
+                        Salary = 400,
                     };
 
                     Membership.CreateUser(user, "P3nguin!");
