@@ -14,7 +14,7 @@ namespace TaskManager.Models
 
         [Required]
         public string DeveloperID { get; set; }
-
+        public bool DeadlineNotificationSent { get; set; }
         public int CompletionPercentage { get; set; }
         public virtual Project Project { get; set; }
         public virtual ApplicationUser Developer { get; set; }
