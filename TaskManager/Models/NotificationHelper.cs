@@ -15,5 +15,18 @@ namespace TaskManager.Models
 
             db.SaveChanges();
         }
+
+        public void CreateCommentNotification(ProjectTask task)
+        {
+            Notification n = new Notification
+            {
+                Task = task,
+                User = task.Project.Manager,
+                Content = $"Task '{task.Name}' has an urgent comment!"
+            };
+
+            db.Notifications.Add(n);
+            db.SaveChanges();
+        }
     }
 }

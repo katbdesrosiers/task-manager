@@ -126,6 +126,12 @@ namespace TaskManager.Controllers
             if (ModelState.IsValid)
             {
                 task.Comments.Add(comment);
+
+                if (comment.Urgent)
+                {
+                    notificationHelper.CreateCommentNotification(task);
+                }
+
                 db.SaveChanges();
             }
             else

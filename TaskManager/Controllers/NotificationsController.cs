@@ -15,7 +15,7 @@ namespace TaskManager.Controllers
         {
             var user = CurrentUser();
             // notificationHelper.MarkRead(user, db);
-            return View(user.Notifications);
+            return View(user.Notifications.Reverse());
         }
     }
 }
