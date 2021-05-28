@@ -235,6 +235,7 @@
     <Compile Include="Models\ProjectHelper.cs" />
     <Compile Include="Models\ProjectTask.cs" />
     <Compile Include="Models\Membership.cs" />
+    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\TaskHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
