@@ -23,6 +23,7 @@
                 .Index(t => t.DeveloperID)
                 .Index(t => t.TaskID);
             
+            AddColumn("dbo.ProjectTasks", "DeadlineNotificationSent", c => c.Boolean(nullable: false));
         }
         
         public override void Down()
@@ -31,6 +32,7 @@
             DropForeignKey("dbo.Comments", "DeveloperID", "dbo.AspNetUsers");
             DropIndex("dbo.Comments", new[] { "TaskID" });
             DropIndex("dbo.Comments", new[] { "DeveloperID" });
+            DropColumn("dbo.ProjectTasks", "DeadlineNotificationSent");
             DropTable("dbo.Comments");
         }
     }

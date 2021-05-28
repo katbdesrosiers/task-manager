@@ -222,13 +222,9 @@
     <Compile Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.designer.cs">
       <DependentUpon>202105261805167_AddTotalCostAndCalcCostFunction.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105280050176_addDeadlineNotification.cs" />
-    <Compile Include="Migrations\202105280050176_addDeadlineNotification.designer.cs">
-      <DependentUpon>202105280050176_addDeadlineNotification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105271954185_AddCommentClass.cs" />
-    <Compile Include="Migrations\202105271954185_AddCommentClass.designer.cs">
-      <DependentUpon>202105271954185_AddCommentClass.cs</DependentUpon>
+    <Compile Include="Migrations\202105281453165_AddCommentClass.cs" />
+    <Compile Include="Migrations\202105281453165_AddCommentClass.designer.cs">
+      <DependentUpon>202105281453165_AddCommentClass.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -359,11 +355,8 @@
     <EmbeddedResource Include="Migrations\202105261805167_AddTotalCostAndCalcCostFunction.resx">
       <DependentUpon>202105261805167_AddTotalCostAndCalcCostFunction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105280050176_addDeadlineNotification.resx">
-      <DependentUpon>202105280050176_addDeadlineNotification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105271954185_AddCommentClass.resx">
-      <DependentUpon>202105271954185_AddCommentClass.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105281453165_AddCommentClass.resx">
+      <DependentUpon>202105281453165_AddCommentClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,7 +13,7 @@ namespace TaskManager.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202105271954185_AddCommentClass"; }
+            get { return "202105281453165_AddCommentClass"; }
         }
         
         string IMigrationMetadata.Source
