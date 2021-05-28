@@ -12,11 +12,13 @@ namespace TaskManager.Models
     {
         public ApplicationUser()
         {
+            Notifications = new HashSet<Notification>();
             Tasks = new HashSet<ProjectTask>();
             Projects = new HashSet<Project>();
         }
         public double Salary { get; set; }
 
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -30,6 +32,7 @@ namespace TaskManager.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<ProjectTask> Tasks { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public ApplicationDbContext()

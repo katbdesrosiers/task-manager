@@ -8,8 +8,11 @@ namespace TaskManager.Models
     public class Notification
     {
         public int ScheduledItemID { get; set; }
-        public int UserID { get; set; }
+        public string ApplicationUserID { get; set; }
         public bool Read { get; set; }
         public string Content { get; set; }
+
+        public virtual ScheduledItem ScheduledItem { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }
