@@ -16,6 +16,7 @@ namespace TaskManager.Controllers
         {
             var user = CurrentUser();
 
+            TaskHelper.CheckTaskDeadline(user, db);
             ProjectHelper.CalcTotalCost();
             return View(user.Tasks);
         }
@@ -31,8 +32,7 @@ namespace TaskManager.Controllers
 
             if (ModelState.IsValid)
             {
-                project.Tasks.Add(task);
-                db.SaveChanges();
+                TaskHelper.Add(project, task, db);
             }
             else
             {
