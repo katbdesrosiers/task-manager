@@ -38,6 +38,7 @@ namespace TaskManager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
+            ViewBag.NotificationCount = user.Notifications.Count();
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View(project);
         }
@@ -74,6 +75,7 @@ namespace TaskManager.Controllers
             var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
             ViewBag.Developers = new SelectList(developers, "Id", "Email");
 
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View(project);
         }
 
@@ -81,6 +83,7 @@ namespace TaskManager.Controllers
         {
             var overBudgetProjects = db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost);
 
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View(overBudgetProjects.ToList());
         }
 

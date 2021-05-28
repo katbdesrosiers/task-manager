@@ -19,6 +19,8 @@ namespace TaskManager.Controllers
 
             TaskHelper.CheckTaskDeadline(user, db);
             ProjectHelper.CalcTotalCost();
+
+            ViewBag.NotificationCount = user.Notifications.Count();
             return View(user.Tasks);
         }
 
@@ -39,7 +41,7 @@ namespace TaskManager.Controllers
                 TempData["Error"] = "Your task is missing something";
             }
 
-
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
@@ -53,6 +55,7 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View(task);
         }
 
@@ -76,6 +79,8 @@ namespace TaskManager.Controllers
         public ActionResult TasksNotFinishedOnTime()
         {
             var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
+
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View(tasks);
         }
 
@@ -101,6 +106,7 @@ namespace TaskManager.Controllers
             }
             db.SaveChanges();
 
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
             return View("Details", task);
         }
     }
