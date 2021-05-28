@@ -110,7 +110,7 @@ namespace TaskManager.Controllers
 
         [HttpPost]
         [Authorize(Roles = "developer")]
-        public ActionResult Comment([Bind(Include ="Content,TaskID,DeveloperID")] Comment comment)
+        public ActionResult Comment([Bind(Include ="Content,TaskID,DeveloperID,Urgent")] Comment comment)
         {
             var task = db.Tasks.Find(comment.TaskID);
 
