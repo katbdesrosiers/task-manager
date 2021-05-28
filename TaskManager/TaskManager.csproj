@@ -231,6 +231,10 @@
     <Compile Include="Migrations\202105281458066_AddNotificationModelAndController.designer.cs">
       <DependentUpon>202105281458066_AddNotificationModelAndController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105281929162_merge.cs" />
+    <Compile Include="Migrations\202105281929162_merge.designer.cs">
+      <DependentUpon>202105281929162_merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -369,6 +373,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105281458066_AddNotificationModelAndController.resx">
       <DependentUpon>202105281458066_AddNotificationModelAndController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105281929162_merge.resx">
+      <DependentUpon>202105281929162_merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
