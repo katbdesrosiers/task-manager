@@ -9,6 +9,11 @@ namespace TaskManager.Models
 {
     public class ProjectTask : ScheduledItem
     {
+        public ProjectTask()
+        {
+            Comments = new HashSet<Comment>();
+        }
+
         [Required]
         public int ProjectID { get; set; }
 
@@ -18,5 +23,6 @@ namespace TaskManager.Models
         public int CompletionPercentage { get; set; }
         public virtual Project Project { get; set; }
         public virtual ApplicationUser Developer { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

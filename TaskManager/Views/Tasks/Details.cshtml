@@ -54,15 +54,69 @@
     </table>
 </div>
 
+<div style="display: flex; align-items: center">
+    <h4>Comments</h4>
+    <div>
+        @if (Model.CompletionPercentage < 100 && TaskManager.Models.Membership.UserInRole(User.Identity.GetUserId(), "developer"))
+        {
+            <input type="button" value="!" id="urgent-button" class="btn btn-danger" style="padding: 2px 8px; font-weight: 700; margin-left: 8px;" />
+        }
+    </div>
+</div>
+
+<div>
+    <div class="panel panel-danger" id="urgent-comment" style="width: 49%; display: none;">
+        <div class="panel-heading">Urgent Comment</div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Comment", "Tasks", new { TaskID = Model.ID, DeveloperID = User.Identity.GetUserId(), Urgent = true }))
+            {
+                @Html.TextArea("Content", new { style = "max-width: 900px; width: 100%;" }) <br />
+                <input type="submit" value="Submit" class="btn btn-danger" style="margin-top: 4px;" />
+            }
+        </div>
+    </div>
+</div>
+
+@if (Model.Comments.Count == 0)
+{
+    <div id="no-comments">No Comments</div>
+}
+<ul class="list-group">
+    @foreach (var comment in Model.Comments.OrderByDescending(c => c.Urgent))
+    {
+        <li class="list-group-item @(comment.Urgent ? "list-group-item-danger" : "")">@comment.Content</li>
+    }
+</ul>
+
 <div>
     @if (User.Identity.GetUserId() == Model.DeveloperID)
     {
-        <h4>Update Completion Percentage:</h4>
-        using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
+        if (Model.CompletionPercentage != 100)
         {
-            <label>Percentage (0 - 100): <span id="percent"></span>%</label>
-            @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class="slider", id="slider"}})
-            <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;"/>
+            <div class="panel panel-default" style="width: 50%;">
+                <div class="panel-heading">Update Completion Percentage</div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
+                    {
+                        <label>Percentage: <span id="percent"></span>%</label>
+                        @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class = "slider", id = "slider", style = "max-width: 900px; width: 100%;" } })
+                        <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;" />
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Comment</div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Comment", "Tasks", new { TaskID = Model.ID, DeveloperID = User.Identity.GetUserId(), Urgent = false }))
+                    {
+                        @Html.TextArea("Content", new { style = "max-width: 1500px; width: 100%;" }) <br />
+                        <input type="submit" value="Submit" class="btn btn-primary" style="margin-top: 4px;" />
+                    }
+                </div>
+            </div>
         }
     }
 </div>
@@ -74,6 +128,15 @@
 
     slider.oninput = function () {
         output.innerHTML = this.value;
+    }
+
+    let urgentButton = document.getElementById("urgent-button");
+    let urgentComment = document.getElementById("urgent-comment");
+    let noComments = document.getElementById("no-comments");
+
+    urgentButton.onclick = function () {
+        urgentComment.style.display = "block";
+        noComments.style.display = "none";
     }
 </script>
 

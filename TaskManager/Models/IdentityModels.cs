@@ -15,12 +15,14 @@ namespace TaskManager.Models
             Notifications = new HashSet<Notification>();
             Tasks = new HashSet<ProjectTask>();
             Projects = new HashSet<Project>();
+            Comments = new HashSet<Comment>();
         }
         public double Salary { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<ProjectTask> Tasks { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -35,6 +37,7 @@ namespace TaskManager.Models
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<ProjectTask> Tasks { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
