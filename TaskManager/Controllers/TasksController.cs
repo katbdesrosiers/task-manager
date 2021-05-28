@@ -16,11 +16,11 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-
-            TaskHelper.CheckTaskDeadline(user, db);
-            ProjectHelper.CalcTotalCost();
+            taskHelper.CheckTaskDeadline(user);
+            projectHelper.CalcTotalCost();
 
             ViewBag.NotificationCount = user.Notifications.Count();
+
             return View(user.Tasks);
         }
 
@@ -34,7 +34,7 @@ namespace TaskManager.Controllers
 
             if (ModelState.IsValid)
             {
-                TaskHelper.Add(project, task, db);
+                taskHelper.Add(task, project);
             }
             else
             {

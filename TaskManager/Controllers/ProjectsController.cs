@@ -15,7 +15,7 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            ProjectHelper.CalcTotalCost();
+            projectHelper.CalcTotalCost();
 
             ViewBag.NotificationCount = user.Notifications.Count();
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
@@ -34,8 +34,7 @@ namespace TaskManager.Controllers
 
             if (ModelState.IsValid)
             {
-                user.Projects.Add(project);
-                db.SaveChanges();
+                projectHelper.Add(project, user);
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
             ViewBag.NotificationCount = user.Notifications.Count();

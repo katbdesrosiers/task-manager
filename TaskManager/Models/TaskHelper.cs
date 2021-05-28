@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace TaskManager.Models
 {
-    public class TaskHelper
+    public class TaskHelper : Helper
     {
-        public static void CheckTaskDeadline(ApplicationUser user, ApplicationDbContext db)
+        public void CheckTaskDeadline(ApplicationUser user)
         {
             foreach (var task in user.Tasks)
             {
@@ -21,7 +21,7 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public static void Add(Project project, ProjectTask task, ApplicationDbContext db)
+        public void Add(ProjectTask task, Project project)
         {
             project.Tasks.Add(task);
             db.SaveChanges();
