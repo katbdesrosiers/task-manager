@@ -2,7 +2,8 @@
 @using TaskManager.Models;
 @{ ViewBag.Title = "Projects Dashboard"; }
 
-<h2>Projects Dashboard</h2>
+<h2>Projects Dashboard <span class="pull-right">@Html.ActionLink("Add a Project", "Create", null, new { @class = "btn btn-primary" })</span></h2>
+<br />
 
 @foreach (var project in Model)
 {
