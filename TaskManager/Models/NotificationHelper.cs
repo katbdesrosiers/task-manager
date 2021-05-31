@@ -54,6 +54,45 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
+        public void CheckComplete()
+        {
+            var projects = db.Projects.ToList();
+
+            foreach (var project in projects)
+            {
+                if (!project.Tasks.Any(t => t.DateCompleted == null))
+                {
+                    Notification n = new Notification
+                    {
+                        Project = project,
+                        User = project.Manager,
+                        Content = $"Project {project.Name} has been completed!",
+                    };
+
+                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                        db.Notifications.Add(n);
+                }
+            }
+
+            var tasks = db.Tasks.ToList();
+
+            foreach (var task in tasks)
+            {
+                if (task.CompletionPercentage == 100)
+                {
+                    Notification n = new Notification
+                    {
+                        Task = task,
+                        User = task.Project.Manager,
+                        Content = $"Task {task.Name} has been completed!",
+                    };
+
+                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                        db.Notifications.Add(n);
+                }
+            }
+        }
+
         public void CreateDeadlineNotification(ProjectTask task)
         {
             Notification n = new Notification
