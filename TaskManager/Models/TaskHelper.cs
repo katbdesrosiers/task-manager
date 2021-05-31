@@ -10,7 +10,7 @@ namespace TaskManager.Models
     {
         public void CheckTaskDeadline(ApplicationUser user)
         {
-            var notifHelper = Helper.Notification(db);
+            var notifHelper = Notification(db);
 
             foreach (var task in user.Tasks)
             {
