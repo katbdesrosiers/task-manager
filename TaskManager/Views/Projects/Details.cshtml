@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<h2><strong>Project:</strong> @Model.Name</h2>
+<h2><strong>Project:</strong> @Model.Name <span class="pull-right">Deadline: @Model.Deadline.ToShortDateString()</span></h2>
 <h4>
     Budget: $@Model.Budget
     @if (Model.TotalCost > 0)
