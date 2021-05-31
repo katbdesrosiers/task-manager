@@ -46,7 +46,8 @@ namespace TaskManager.Models
                             Content = $"Project {project.Name} has passed its deadline with incomplete tasks!",
                         };
 
-                        db.Notifications.Add(n);
+                        if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                            db.Notifications.Add(n);
                     }
                 }
             }
