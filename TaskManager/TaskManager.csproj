@@ -314,7 +314,6 @@
     <Content Include="Views\Tasks\Details.cshtml" />
     <Content Include="Views\Projects\OverBudget.cshtml" />
     <Content Include="Views\Tasks\TasksNotFinishedOnTime.cshtml" />
-    <Content Include="Views\Projects\Notifications.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
