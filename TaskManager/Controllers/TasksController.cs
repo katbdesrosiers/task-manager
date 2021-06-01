@@ -18,8 +18,7 @@ namespace TaskManager.Controllers
             taskHelper.CheckTaskDeadline(user);
             projectHelper.CalcTotalCost();
 
-            ViewBag.NotificationCount = user.Notifications.Count();
-
+            IncludeNotificationCount();
             return View(user.Tasks);
         }
 
@@ -33,17 +32,14 @@ namespace TaskManager.Controllers
                 return HttpNotFound();
 
             if (ModelState.IsValid)
-            {
                 taskHelper.Add(task, project);
-            }
             else
-            {
                 TempData["Error"] = "Your task is missing something";
-            }
 
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
+            IncludeNotificationCount();
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
+
         [Authorize]
         public ActionResult Details(int? id)
         {
@@ -55,7 +51,16 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
+            IncludeNotificationCount();
+
+            ViewBag.Developers = new SelectList(
+                db.Users.ToList()
+                .Where(u => Membership.UserInRole(u.Id, "developer"))
+                .OrderBy(u => u.UserName),
+                "Id",
+                "UserName",
+                task.Developer.Id);
+
             return View(task);
         }
 
@@ -71,19 +76,21 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
-            db.Tasks.Remove(task);
-            db.SaveChanges();
+            taskHelper.Remove(task);
 
             return RedirectToAction("Details");
+        }
+
+        public void IncludeNotificationCount()
+        {
+            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
         }
 
         [Authorize(Roles = "manager")]
         public ActionResult TasksNotFinishedOnTime()
         {
-            var tasks = db.Tasks.Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now).ToList();
-
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
-            return View(tasks);
+            IncludeNotificationCount();
+            return View(taskHelper.OverdueTasks());
         }
 
         [HttpPost]
@@ -98,25 +105,15 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
-            task.CompletionPercentage = CompletionPercentage;
+            taskHelper.ChangeCompletion(task, CompletionPercentage);
 
-            if (CompletionPercentage == 100)
-            {
-                task.DateCompleted = DateTime.Now;
-            }
-            else
-            {
-                task.DateCompleted = null;
-            }
-            db.SaveChanges();
-
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
+            IncludeNotificationCount();
             return View("Details", task);
         }
 
         [HttpPost]
         [Authorize(Roles = "developer")]
-        public ActionResult Comment([Bind(Include ="Content,TaskID,DeveloperID,Urgent")] Comment comment)
+        public ActionResult Comment([Bind(Include = "Content,TaskID,DeveloperID,Urgent")] Comment comment)
         {
             var task = db.Tasks.Find(comment.TaskID);
 
@@ -124,22 +121,30 @@ namespace TaskManager.Controllers
                 return HttpNotFound();
 
             if (ModelState.IsValid)
-            {
-                task.Comments.Add(comment);
-
-                if (comment.Urgent)
-                {
-                    notificationHelper.CreateCommentNotification(task);
-                }
-
-                db.SaveChanges();
-            }
+                taskHelper.AddComment(task, comment);
             else
-            {
                 TempData["Error"] = "Your comment is missing something";
-            }
 
             return RedirectToAction("Details", "Tasks", new { id = comment.TaskID });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "manager")]
+        public ActionResult ChangeDeveloper(int? id, string DeveloperID)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var task = db.Tasks.Find(id);
+
+            if (task == null)
+                return HttpNotFound();
+
+            var developer = db.Users.Find(DeveloperID);
+
+            taskHelper.ChangeDeveloper(task, developer);
+
+            return RedirectToAction("Details", "Tasks", new { id = task.ID });
         }
     }
 }
