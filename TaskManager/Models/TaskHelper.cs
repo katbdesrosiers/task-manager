@@ -17,14 +17,12 @@ namespace TaskManager.Models
 
         public void CheckTaskDeadline(ApplicationUser user)
         {
-            var notifHelper = Notification(db);
-
             foreach (var task in user.Tasks)
             {
                 if (!task.DeadlineNotificationSent && DateTime.Now.Day == task.Deadline.AddDays(-1).Day)
                 {
                     task.DeadlineNotificationSent = true;
-                    notifHelper.CreateDeadlineNotification(task);
+                    notificationHelper.CreateDeadlineNotification(task);
                 }
             }
 
