@@ -107,6 +107,14 @@ namespace TaskManager.Controllers
 
             taskHelper.ChangeCompletion(task, CompletionPercentage);
 
+            ViewBag.Developers = new SelectList(
+                db.Users.ToList()
+                .Where(u => Membership.UserInRole(u.Id, "developer"))
+                .OrderBy(u => u.UserName),
+                "Id",
+                "UserName",
+                task.Developer.Id);
+
             IncludeNotificationCount();
             return View("Details", task);
         }
