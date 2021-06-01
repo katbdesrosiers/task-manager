@@ -45,7 +45,13 @@
         </thead>
         <tbody>
             <tr>
-                <td>@Model.Developer.Email</td>
+                <td>
+                    @using (Html.BeginForm("ChangeDeveloper", "Tasks", new { id = Model.ID, DeveloperID = Model.DeveloperID }, FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        @Html.DropDownListFor(model => model.DeveloperID, (SelectList)ViewBag.Developers, new { @class = "form-control" })
+                        <input type="submit" class="btn btn-default"value="Update" />
+                    }
+                </td>
                 <td>@Model.DateCreated.ToShortDateString()</td>
                 <td>@Model.Deadline.ToShortDateString()</td>
                 <td>@(Model.DateCompleted == null ? "Incomplete" : Model.DateCompleted.ToString())</td>
