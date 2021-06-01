@@ -6,31 +6,38 @@
 
 <h2>All Notifications</h2>
 
-@foreach (var item in Model)
-{<div class="well well-lg">
+@if (!Model.Any())
+{
+    <h4>No notifications!</h4>
+}
+else
+{
+    @foreach (var item in Model)
+    {<div class="well well-lg">
 
-        @if (item.Read == false)
-        {
-            <span class="label label-danger">NEW</span>
-            if (item.Project != null)
+            @if (item.Read == false)
             {
-                @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "text-danger h4 text-align-mid" })
+                <span class="label label-danger">NEW</span>
+                if (item.Project != null)
+                {
+                    @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "text-danger h4 text-align-mid" })
+                }
+                else
+                {
+                    @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "text-danger h4 text-align-mid" })
+                }
             }
             else
             {
-                @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "text-danger h4 text-align-mid" })
+                if (item.Project != null)
+                {
+                    @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "h4 text-align-mid" })
+                }
+                else
+                {
+                    @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "h4 text-align-mid" })
+                }
             }
-        }
-        else
-        {
-            if (item.Project != null)
-            {
-                @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "h4 text-align-mid" })
-            }
-            else
-            {
-                @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "h4 text-align-mid" })
-            }
-        }
-    </div>
+        </div>
+    }
 }
