@@ -8,14 +8,7 @@ namespace TaskManager.Models
 {
     public class TaskHelper : Helper
     {
-        public NotificationHelper notificationHelper { get; set; }
-
-        public TaskHelper()
-        {
-            notificationHelper = Helper.Notification(db);
-        }
-
-        public void CheckTaskDeadline(ApplicationUser user)
+        public void CheckTaskDeadline(ApplicationUser user, NotificationHelper notificationHelper)
         {
             foreach (var task in user.Tasks)
             {
@@ -60,8 +53,10 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void AddComment(ProjectTask task, Comment comment)
+        public void AddComment(ProjectTask task, Comment comment, NotificationHelper notificationHelper)
         {
+            var notifHelper = Notification(db);
+
             task.Comments.Add(comment);
 
             if (comment.Urgent)

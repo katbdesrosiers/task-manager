@@ -15,7 +15,8 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            taskHelper.CheckTaskDeadline(user);
+
+            taskHelper.CheckTaskDeadline(user, notificationHelper);
             projectHelper.CalcTotalCost();
 
             IncludeNotificationCount();
@@ -129,7 +130,7 @@ namespace TaskManager.Controllers
                 return HttpNotFound();
 
             if (ModelState.IsValid)
-                taskHelper.AddComment(task, comment);
+                taskHelper.AddComment(task, comment, notificationHelper);
             else
                 TempData["Error"] = "Your comment is missing something";
 

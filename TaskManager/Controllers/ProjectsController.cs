@@ -16,6 +16,7 @@ namespace TaskManager.Controllers
         {
             var user = CurrentUser();
             projectHelper.CalcTotalCost();
+
             notificationHelper.CreatePastDeadlineNotification();
             notificationHelper.CheckProjectsComplete();
             notificationHelper.CheckTasksComplete();

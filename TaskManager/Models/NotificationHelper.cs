@@ -10,10 +10,10 @@ namespace TaskManager.Models
     {
         public void MarkRead(ApplicationUser user)
         {
-            foreach (var notif in user.Notifications)
-                notif.Read = true;
+            //foreach (var notif in user.Notifications)
+            //    notif.Read = true;
 
-            db.SaveChanges();
+            //db.SaveChanges();
         }
 
         public void CreateCommentNotification(ProjectTask task)

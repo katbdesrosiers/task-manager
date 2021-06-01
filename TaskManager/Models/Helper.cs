@@ -8,7 +8,7 @@ namespace TaskManager.Models
 {
     public abstract class Helper
     {
-        protected ApplicationDbContext db { get; set; }
+        public ApplicationDbContext db { get; set; }
 
         public static TaskHelper Task (ApplicationDbContext context)
         {
