@@ -29,5 +29,19 @@ namespace TaskManager.Models
 
             db.SaveChanges();
         }
+
+        public void CheckProjectsCompletion()
+        {
+            var projects = db.Projects.ToList();
+
+            foreach (var project in projects)
+            {
+                if (project.Tasks.Count() > 0 && !project.Tasks.Any(t => t.DateCompleted == null))
+                {
+                    var latestCompletion = project.Tasks.OrderByDescending(t => t.DateCompleted).FirstOrDefault();
+                    project.DateCompleted = latestCompletion.DateCompleted;
+                }
+            }
+        }
     }
 }
