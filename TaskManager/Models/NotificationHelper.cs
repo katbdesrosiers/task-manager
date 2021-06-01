@@ -95,15 +95,15 @@ namespace TaskManager.Models
 
         public void CreateDeadlineNotification(ProjectTask task)
         {
-            //Notification n = new Notification
-            //{
-            //    Task = task,
-            //    User = task.Developer,
-            //    Content = $"Task '{task.Name}' has 1 day until the deadline!"
-            //};
+            Notification n = new Notification
+            {
+                Task = task,
+                User = task.Developer,
+                Content = $"Task '{task.Name}' has 1 day until the deadline!"
+            };
 
-            //db.Notifications.Add(n);
-            //db.SaveChanges();
+            db.Notifications.Add(n);
+            db.SaveChanges();
         }
     }
 }

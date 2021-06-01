@@ -14,7 +14,7 @@ namespace TaskManager.Models
 
             foreach (var task in user.Tasks)
             {
-                if (!task.DeadlineNotificationSent && DateTime.Now > task.Deadline.AddDays(-1))
+                if (!task.DeadlineNotificationSent && DateTime.Now.Day == task.Deadline.AddDays(-1).Day)
                 {
                     task.DeadlineNotificationSent = true;
                     notifHelper.CreateDeadlineNotification(task);
