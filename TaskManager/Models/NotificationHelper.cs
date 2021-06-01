@@ -60,7 +60,7 @@ namespace TaskManager.Models
 
             foreach (var project in projects)
             {
-                if (project.Tasks.Count() > 0 && !project.Tasks.Any(t => t.DateCompleted == null))
+                if (project.DateCompleted != null)
                 {
                     Notification n = new Notification
                     {
