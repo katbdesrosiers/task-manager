@@ -31,27 +31,27 @@ namespace TaskManager.Models
 
         public void CreatePastDeadlineNotification()
         {
-            //var projects = db.Projects.ToList();
+            var projects = db.Projects.ToList();
 
-            //foreach (var project in projects)
-            //{
-            //    if (DateTime.Now >= project.Deadline)
-            //    {
-            //        if (project.Tasks.Any(t => t.DateCompleted == null))
-            //        {
-            //            Notification n = new Notification
-            //            {
-            //                Project = project,
-            //                User = project.Manager,
-            //                Content = $"Project {project.Name} has passed its deadline with incomplete tasks!",
-            //            };
+            foreach (var project in projects)
+            {
+                if (DateTime.Now >= project.Deadline)
+                {
+                    if (project.Tasks.Any(t => t.DateCompleted == null))
+                    {
+                        Notification n = new Notification
+                        {
+                            Project = project,
+                            User = project.Manager,
+                            Content = $"Project {project.Name} has passed its deadline with incomplete tasks!",
+                        };
 
-            //            if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
-            //                db.Notifications.Add(n);
-            //        }
-            //    }
-            //}
-            //db.SaveChanges();
+                        if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                            db.Notifications.Add(n);
+                    }
+                }
+            }
+            db.SaveChanges();
         }
 
         public void CheckComplete()

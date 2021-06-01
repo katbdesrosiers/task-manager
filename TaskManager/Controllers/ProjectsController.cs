@@ -17,7 +17,7 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
             projectHelper.CalcTotalCost();
             notificationHelper.CreatePastDeadlineNotification();
-            notificationHelper.CheckComplete();
+            //notificationHelper.CheckComplete();
 
             ViewBag.NotificationCount = user.Notifications.Count();
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
