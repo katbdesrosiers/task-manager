@@ -56,23 +56,23 @@ namespace TaskManager.Models
 
         public void CheckProjectsComplete()
         {
-            //var projects = db.Projects.ToList();
+            var projects = db.Projects.ToList();
 
-            //foreach (var project in projects)
-            //{
-            //    if (project.Tasks.Count() > 0 && !project.Tasks.Any(t => t.DateCompleted == null))
-            //    {
-            //        Notification n = new Notification
-            //        {
-            //            Project = project,
-            //            User = project.Manager,
-            //            Content = $"Project '{project.Name}' has been completed!",
-            //        };
+            foreach (var project in projects)
+            {
+                if (project.Tasks.Count() > 0 && !project.Tasks.Any(t => t.DateCompleted == null))
+                {
+                    Notification n = new Notification
+                    {
+                        Project = project,
+                        User = project.Manager,
+                        Content = $"Project '{project.Name}' has been completed!",
+                    };
 
-            //        if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
-            //            db.Notifications.Add(n);
-            //    }
-            //}
+                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                        db.Notifications.Add(n);
+                }
+            }
 
             db.SaveChanges();
         }
