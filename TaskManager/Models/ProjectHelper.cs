@@ -42,6 +42,8 @@ namespace TaskManager.Models
                     project.DateCompleted = latestCompletion.DateCompleted;
                 }
             }
+
+            db.SaveChanges();
         }
     }
 }
