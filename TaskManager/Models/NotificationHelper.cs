@@ -28,5 +28,89 @@ namespace TaskManager.Models
             db.Notifications.Add(n);
             db.SaveChanges();
         }
+
+        public void CreatePastDeadlineNotification()
+        {
+            var projects = db.Projects.ToList();
+
+            foreach (var project in projects)
+            {
+                if (DateTime.Now >= project.Deadline)
+                {
+                    if (project.Tasks.Any(t => t.DateCompleted == null))
+                    {
+                        Notification n = new Notification
+                        {
+                            Project = project,
+                            User = project.Manager,
+                            Content = $"Project '{project.Name}' has passed its deadline with incomplete tasks!",
+                        };
+
+                        if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                            db.Notifications.Add(n);
+                    }
+                }
+            }
+            db.SaveChanges();
+        }
+
+        public void CheckProjectsComplete()
+        {
+            var projects = db.Projects.ToList();
+
+            foreach (var project in projects)
+            {
+                if (project.Tasks.Count() > 0 && !project.Tasks.Any(t => t.DateCompleted == null))
+                {
+                    Notification n = new Notification
+                    {
+                        Project = project,
+                        User = project.Manager,
+                        Content = $"Project '{project.Name}' has been completed!",
+                    };
+
+                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                        db.Notifications.Add(n);
+                }
+            }
+
+            db.SaveChanges();
+        }
+
+        public void CheckTasksComplete()
+        {
+            var tasks = db.Tasks.ToList();
+
+            foreach (var task in tasks)
+            {
+                if (task.CompletionPercentage == 100)
+                {
+                    Notification n = new Notification
+                    {
+                        Task = task,
+                        User = task.Project.Manager,
+                        Content = $"Task '{task.Name}' has been completed!",
+                    };
+
+                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                        db.Notifications.Add(n);
+                }
+            }
+
+            db.SaveChanges();
+        }
+
+        public void CreateDeadlineNotification(ProjectTask task)
+        {
+            Notification n = new Notification
+            {
+                Task = task,
+                User = task.Developer,
+                Content = $"Task '{task.Name}' has 1 day until the deadline!"
+            };
+
+            db.Notifications.Add(n);
+            db.SaveChanges();
+        }
     }
 }
