@@ -13,7 +13,7 @@
             @foreach (var task in Model)
             {
             <div class="panel panel-@task.PriorityClassName self-start">
-                <div class="panel-heading">@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)<span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
+                <div class="panel-heading">@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null) - <span class="small">@task.Project.Name</span><span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
                 @if (task.DateCompleted != null)
                 {
                     <div class="panel-footer">Completed on: @task.DateCompleted</div>
