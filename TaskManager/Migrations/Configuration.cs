@@ -153,7 +153,7 @@
                 ProjectTask projectTask6 = new ProjectTask
                 {
                     Name = "Test Task 6",
-                    Deadline = DateTime.Now.AddDays(30),
+                    Deadline = DateTime.Now.AddDays(1),
                     Priority = Priority.High,
                     Project = project4,
                     DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,

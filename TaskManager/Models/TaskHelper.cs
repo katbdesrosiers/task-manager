@@ -12,7 +12,10 @@ namespace TaskManager.Models
         {
             foreach (var task in user.Tasks)
             {
-                if (!task.DeadlineNotificationSent && DateTime.Now.Day == task.Deadline.AddDays(-1).Day)
+                var taskDate = task.Deadline.Date.AddDays(-1);
+                var currentDate = DateTime.Now.Date;
+
+                if (!task.DeadlineNotificationSent && taskDate == currentDate && task.CompletionPercentage != 100)
                 {
                     task.DeadlineNotificationSent = true;
                     notificationHelper.CreateDeadlineNotification(task);
