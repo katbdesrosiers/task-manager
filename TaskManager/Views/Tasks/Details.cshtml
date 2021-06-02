@@ -71,7 +71,7 @@
 </div>
 
 <div>
-    <div class="panel panel-danger" id="urgent-comment" style="width: 49%; display: none;">
+    <div class="panel panel-danger" id="urgent-comment" style="width: 50%; display: none;">
         <div class="panel-heading">Urgent Comment</div>
         <div class="panel-body">
             @using (Html.BeginForm("Comment", "Tasks", new { TaskID = Model.ID, DeveloperID = User.Identity.GetUserId(), Urgent = true }))
