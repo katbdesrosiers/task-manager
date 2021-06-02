@@ -20,7 +20,8 @@ namespace TaskManager.Controllers
             projectHelper.CalcTotalCost();
 
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            return View(user.Tasks);
+            var tasks = user.Tasks.GroupBy(t => t.Project);
+            return View(tasks);
         }
 
         [HttpPost]
