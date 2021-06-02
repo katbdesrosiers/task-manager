@@ -94,7 +94,6 @@
                     Priority = Priority.Low,
                     Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
                     Budget = 500,
-                    DateCompleted = DateTime.Now.AddDays(15),
                 };
                 Project project5 = new Project // Over budget
                 {
