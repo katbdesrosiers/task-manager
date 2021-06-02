@@ -12,12 +12,17 @@
 }
 else
 {
+    using (Html.BeginForm(null, null, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+    }
+
     foreach (var item in Model)
     {<div class="well well-lg">
 
             @if (item.Read == false)
             {
-                <span class="label label-danger">NEW</span>
+                <span class="label label-danger unread">NEW</span>
                 if (item.Project != null)
                 {
                     @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "text-danger h4 text-align-mid" })
@@ -40,4 +45,8 @@ else
             }
         </div>
     }
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/notifications")
 }

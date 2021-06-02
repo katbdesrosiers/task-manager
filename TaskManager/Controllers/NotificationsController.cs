@@ -14,7 +14,7 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            // notificationHelper.MarkRead(user, db);
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Notifications.Reverse());
         }
     }

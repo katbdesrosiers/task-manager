@@ -112,5 +112,10 @@ namespace TaskManager.Models
             db.Notifications.Add(n);
             db.SaveChanges();
         }
+
+        public int UnreadCount(ApplicationUser user)
+        {
+            return user.Notifications.Where(n => !n.Read).Count(); 
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace TaskManager.Controllers
             taskHelper.CheckTaskDeadline(user, notificationHelper);
             projectHelper.CalcTotalCost();
 
-            IncludeNotificationCount();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Tasks);
         }
 
@@ -37,7 +37,8 @@ namespace TaskManager.Controllers
             else
                 TempData["Error"] = "Your task is missing something";
 
-            IncludeNotificationCount();
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
@@ -52,7 +53,8 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
-            IncludeNotificationCount();
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
 
             ViewBag.Developers = new SelectList(
                 db.Users.ToList()
@@ -82,15 +84,11 @@ namespace TaskManager.Controllers
             return RedirectToAction("Details");
         }
 
-        public void IncludeNotificationCount()
-        {
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
-        }
-
         [Authorize(Roles = "manager")]
         public ActionResult TasksNotFinishedOnTime()
         {
-            IncludeNotificationCount();
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(taskHelper.OverdueTasks());
         }
 
@@ -116,7 +114,8 @@ namespace TaskManager.Controllers
                 "UserName",
                 task.Developer.Id);
 
-            IncludeNotificationCount();
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View("Details", task);
         }
 
@@ -154,6 +153,23 @@ namespace TaskManager.Controllers
             taskHelper.ChangeDeveloper(task, developer);
 
             return RedirectToAction("Details", "Tasks", new { id = task.ID });
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Read()
+        {
+            var user = CurrentUser();
+
+            user.Notifications
+                .Where(n => !n.Read)
+                .ToList()
+                .ForEach(n => n.Read = true);
+
+            db.SaveChanges();
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

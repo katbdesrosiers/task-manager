@@ -22,11 +22,14 @@ namespace TaskManager.Controllers
             notificationHelper.CheckProjectsComplete();
             notificationHelper.CheckTasksComplete();
 
-            ViewBag.NotificationCount = user.Notifications.Count();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
+
         public ActionResult Create()
         {
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View();
         }
@@ -42,7 +45,7 @@ namespace TaskManager.Controllers
                 projectHelper.Add(project, user);
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
-            ViewBag.NotificationCount = user.Notifications.Count();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return View(project);
         }
@@ -79,7 +82,8 @@ namespace TaskManager.Controllers
             var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
             ViewBag.Developers = new SelectList(developers, "Id", "Email");
 
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(project);
         }
 
@@ -87,7 +91,8 @@ namespace TaskManager.Controllers
         {
             var overBudgetProjects = db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost);
 
-            ViewBag.NotificationCount = CurrentUser().Notifications.Count();
+            var user = CurrentUser();
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(overBudgetProjects.ToList());
         }
 
