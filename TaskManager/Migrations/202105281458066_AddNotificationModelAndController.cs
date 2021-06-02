@@ -19,9 +19,9 @@
                         Content = c.String(),
                     })
                 .PrimaryKey(t => t.NotificationID)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserID, cascadeDelete: true)
-                .ForeignKey("dbo.Projects", t => t.ProjectID, cascadeDelete: true)
-                .ForeignKey("dbo.ProjectTasks", t => t.TaskID, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserID, cascadeDelete: false)
+                .ForeignKey("dbo.Projects", t => t.ProjectID, cascadeDelete: false)
+                .ForeignKey("dbo.ProjectTasks", t => t.TaskID, cascadeDelete: false)
                 .Index(t => t.ProjectID)
                 .Index(t => t.TaskID)
                 .Index(t => t.ApplicationUserID);
