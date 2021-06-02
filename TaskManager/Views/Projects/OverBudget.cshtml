@@ -17,7 +17,10 @@ else
     {
         <div class="panel panel-@project.PriorityClassName">
             <div class="panel-heading">
-                <i class="far fa-check-square fa-lg"></i>
+                @if (project.DateCompleted != null)
+                {
+                    <i class="far fa-check-square fa-lg"></i>
+                }
                 @Html.ActionLink(project.Name, "Details", new { id = project.ID }) -
                 Budget: $@project.Budget
                 - <span class="text-danger">Actual Cost: $@project.TotalCost - Over budget by: $@(project.TotalCost - project.Budget)</span>

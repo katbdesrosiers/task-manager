@@ -54,7 +54,7 @@
         {
             <tr class=@(task.Priority == Priority.High ? "warning" : "")>
                 <td>@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)</td>
-                <td>@task.Developer.Email</td>
+                <td>@task.Developer.UserName</td>
                 <td>@task.Deadline.ToShortDateString()</td>
                 <td>@task.CompletionPercentage%</td>
             </tr>

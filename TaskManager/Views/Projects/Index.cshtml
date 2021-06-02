@@ -24,7 +24,7 @@
                 {
                     <div class="panel panel-default self-start">
                         <div class="panel-heading">@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)<span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
-                        <div class="panel-footer">@task.Developer.Email</div>
+                        <div class="panel-footer">@task.Developer.UserName</div>
                     </div>
                 }
             </div>
