@@ -29,7 +29,7 @@ namespace TaskManager.Models
 
             foreach (var project in projects)
             {
-                if (DateTime.Now >= project.Deadline)
+                if (DateTime.Now.Date > project.Deadline.Date)
                 {
                     if (project.Tasks.Any(t => t.DateCompleted == null))
                     {
