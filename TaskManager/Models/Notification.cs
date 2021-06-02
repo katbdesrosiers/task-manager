@@ -14,15 +14,13 @@ namespace TaskManager.Models
         }
 
         public int NotificationID { get; set; }
-        public int? ProjectID { get; set; }
-        public int? TaskID { get; set; }
+        public int ItemID { get; set; }
+        public bool IsProject { get; set; }
         public string ApplicationUserID { get; set; }
         public bool Read { get; set; }
         public string Content { get; set; }
         public DateTime DateCreated { get; set; }
 
-        public virtual Project Project { get; set; }
-        public virtual ProjectTask Task { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
 }

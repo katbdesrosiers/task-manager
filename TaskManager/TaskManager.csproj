@@ -239,6 +239,10 @@
     <Compile Include="Migrations\202106021718492_AddDateCreatedToNotification.designer.cs">
       <DependentUpon>202106021718492_AddDateCreatedToNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106021950188_updateNotificalModel.cs" />
+    <Compile Include="Migrations\202106021950188_updateNotificalModel.designer.cs">
+      <DependentUpon>202106021950188_updateNotificalModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Notification.cs" />
@@ -383,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106021718492_AddDateCreatedToNotification.resx">
       <DependentUpon>202106021718492_AddDateCreatedToNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106021950188_updateNotificalModel.resx">
+      <DependentUpon>202106021950188_updateNotificalModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

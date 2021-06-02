@@ -13,6 +13,8 @@ namespace TaskManager.Controllers
         // GET: Notifications
         public ActionResult Index()
         {
+            notificationHelper.RemoveDeletedNotifications();
+
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Notifications.Reverse());
