@@ -23,24 +23,24 @@ else
             @if (item.Read == false)
             {
                 <span class="label label-danger unread">NEW</span>
-                if (item.Project != null)
+                if (item.IsProject)
                 {
-                    @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "text-danger h4 text-align-mid" })
+                    @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ItemID }, new { @class = "text-danger h4 text-align-mid" })
                 }
                 else
                 {
-                    @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "text-danger h4 text-align-mid" })
+                    @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.ItemID }, new { @class = "text-danger h4 text-align-mid" })
                 }
             }
             else
             {
-                if (item.Project != null)
+                if (item.IsProject)
                 {
-                    @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ProjectID }, new { @class = "h4 text-align-mid" })
+                    @Html.ActionLink(item.Content, "Details", "Projects", new { id = item.ItemID }, new { @class = "h4 text-align-mid" })
                 }
                 else
                 {
-                    @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.TaskID }, new { @class = "h4 text-align-mid" })
+                    @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.ItemID }, new { @class = "h4 text-align-mid" })
                 }
             }
         </div>
