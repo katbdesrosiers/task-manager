@@ -8,14 +8,6 @@ namespace TaskManager.Models
 {
     public class NotificationHelper : Helper
     {
-        public void MarkRead(ApplicationUser user)
-        {
-            //foreach (var notif in user.Notifications)
-            //    notif.Read = true;
-
-            //db.SaveChanges();
-        }
-
         public void CreateCommentNotification(ProjectTask task)
         {
             Notification n = new Notification
