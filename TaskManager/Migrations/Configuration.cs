@@ -149,6 +149,7 @@
                     Project = project3,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
                     CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now,
                 };
                 ProjectTask projectTask6 = new ProjectTask
                 {
@@ -157,7 +158,8 @@
                     Priority = Priority.High,
                     Project = project4,
                     DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
-                    CompletionPercentage = 100
+                    CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now
                 };
                 ProjectTask projectTask7 = new ProjectTask
                 {
@@ -166,7 +168,8 @@
                     Priority = Priority.Low,
                     Project = project3,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
-                    CompletionPercentage = 100
+                    CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now
                 };
                 ProjectTask projectTask8 = new ProjectTask
                 {
