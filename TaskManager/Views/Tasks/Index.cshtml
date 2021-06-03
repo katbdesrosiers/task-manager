@@ -18,10 +18,10 @@
                     {
                         <div class="panel panel-@task.PriorityClassName self-start">
                             <div class="panel-heading">@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)<span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
-                            <div class="panel-footer">@(task.DateCompleted != null ? "Completed on: "+task.DateCompleted : "Completion Percentage: "+@task.CompletionPercentage+"%")</div>
-                            <div class="progress">
+                            <div class="progress margin-bottom-zero">
                                 <div class="progress-bar" role="progressbar" style="width: @task.CompletionPercentage%;" aria-valuenow="@task.CompletionPercentage" aria-valuemin="0" aria-valuemax="100">@task.CompletionPercentage%</div>
                             </div>
+                            <div class="panel-footer">@(task.DateCompleted != null ? "Completed on: "+task.DateCompleted : "Completion Percentage: "+@task.CompletionPercentage+"%")</div>
                         </div>
                     }
                 </div>
