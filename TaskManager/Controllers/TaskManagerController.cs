@@ -16,6 +16,7 @@ namespace TaskManager.Controllers
         public ProjectHelper projectHelper { get; set; }
         public NotificationHelper notificationHelper { get; set; }
         private UserManager<ApplicationUser> userManager { get; set; }
+        public FormsHelper formsHelper { get; set; }
 
         public TaskManagerController()
         {
@@ -24,6 +25,7 @@ namespace TaskManager.Controllers
             taskHelper = Helper.Task(db);
             projectHelper = Helper.Project(db);
             notificationHelper = Helper.Notification(db);
+            formsHelper = Helper.Forms(db);
         }
 
         public ApplicationUser CurrentUser()

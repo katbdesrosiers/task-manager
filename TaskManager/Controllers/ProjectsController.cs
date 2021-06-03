@@ -30,7 +30,8 @@ namespace TaskManager.Controllers
         {
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
+            ViewBag.Priorities = formsHelper.Priorities();
+
             return View();
         }
 
@@ -46,7 +47,8 @@ namespace TaskManager.Controllers
                 return RedirectToAction("Index"); //change this to redirect to project details
             }
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
+            ViewBag.Priorities = formsHelper.Priorities();
+            
             return View(project);
         }
 
@@ -78,9 +80,9 @@ namespace TaskManager.Controllers
                 project.Tasks = project.Tasks.OrderByDescending(t => t.CompletionPercentage).ToList();
             }
 
-            ViewBag.Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
+            ViewBag.Priorities = formsHelper.Priorities();
             var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
-            ViewBag.Developers = new SelectList(developers, "Id", "Email");
+            ViewBag.Developers = formsHelper.ProjectDevelopers(developers);
 
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
