@@ -17,7 +17,7 @@ namespace TaskManager.Controllers
 
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            return View(user.Notifications.Reverse());
+            return View(user.Notifications.OrderByDescending(n=>n.DateCreated));
         }
     }
 }

@@ -22,8 +22,9 @@
     Budget: $@Model.Budget
     @if (Model.TotalCost > 0)
     {
-    <span>Total Cost: $@Model.TotalCost</span>
+        <span>Total Cost: $@Model.TotalCost</span>
     }
+    <span class="pull-right">Completed: @Model.DateCompleted</span>
 </h4>
 
 <h3>Tasks</h3>
@@ -32,7 +33,7 @@
     {
         <input type="submit" value="Hide Completed" class="btn btn-success" />
     }
-    @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, sort = ViewBag.Sort}))
+    @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, sort = ViewBag.Sort }))
     {
         <input style="margin-left: 10px;" type="submit" value="Priority" class="btn btn-success" />
     }
@@ -46,6 +47,7 @@
             <th scope="col">@Html.DisplayName("Developer")</th>
             <th scope="col">@Html.DisplayName("Deadline")</th>
             <th scope="col">@Html.DisplayName("Completed")</th>
+            <th scope="col">@Html.DisplayName("Date Completed")</th>
         </tr>
     </thead>
 
@@ -57,6 +59,7 @@
                 <td>@task.Developer.Email</td>
                 <td>@task.Deadline.ToShortDateString()</td>
                 <td>@task.CompletionPercentage%</td>
+                <td>@(task.DateCompleted == null ? "Incomplete" : Model.DateCompleted.ToString())</td>
             </tr>
         }
     </tbody>

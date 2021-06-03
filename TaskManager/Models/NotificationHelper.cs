@@ -16,7 +16,7 @@ namespace TaskManager.Models
             {
                 ItemID = taskID,
                 User = task.Project.Manager,
-                Content = $"Task '{task.Name}' has an urgent comment!"
+                Content = $"{task.Name} has an urgent comment!"
             };
 
             db.Notifications.Add(n);
@@ -29,7 +29,7 @@ namespace TaskManager.Models
 
             foreach (var project in projects)
             {
-                if (DateTime.Now >= project.Deadline)
+                if (DateTime.Now.Date > project.Deadline.Date)
                 {
                     if (project.Tasks.Any(t => t.DateCompleted == null))
                     {
@@ -39,7 +39,7 @@ namespace TaskManager.Models
                         {
                             ItemID = projectID,
                             User = project.Manager,
-                            Content = $"Project '{project.Name}' has passed its deadline with incomplete tasks!",
+                            Content = $"{project.Name} has passed its deadline with incomplete tasks!",
                             IsProject = true,
                         };
 
@@ -65,7 +65,7 @@ namespace TaskManager.Models
                     {
                         ItemID = projectID,
                         User = project.Manager,
-                        Content = $"Project '{project.Name}' has been completed!",
+                        Content = $"{project.Name} has been completed!",
                         IsProject = true,
                     };
 
@@ -91,7 +91,7 @@ namespace TaskManager.Models
                     {
                         ItemID = taskID,
                         User = task.Project.Manager,
-                        Content = $"Task '{task.Name}' has been completed!",
+                        Content = $"{task.Name} has been completed!",
                     };
 
                     if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
@@ -110,7 +110,7 @@ namespace TaskManager.Models
             {
                 ItemID = taskID,
                 User = task.Developer,
-                Content = $"Task '{task.Name}' has 1 day until the deadline!"
+                Content = $"{task.Name} has 1 day until the deadline!"
             };
 
             db.Notifications.Add(n);

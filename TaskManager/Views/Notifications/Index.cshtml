@@ -43,6 +43,7 @@ else
                     @Html.ActionLink(item.Content, "Details", "Tasks", new { id = item.ItemID }, new { @class = "h4 text-align-mid" })
                 }
             }
+            <span class="pull-right">@item.DateCreated.ToShortDateString()</span>
         </div>
     }
 }

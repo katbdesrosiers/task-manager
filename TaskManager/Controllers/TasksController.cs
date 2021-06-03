@@ -81,7 +81,7 @@ namespace TaskManager.Controllers
 
             taskHelper.Remove(task);
 
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
         [Authorize(Roles = "manager")]
