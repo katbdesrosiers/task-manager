@@ -30,7 +30,7 @@ namespace TaskManager.Controllers
         {
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            ViewBag.Priorities = formsHelper.Priorities();
+            ViewBag.Priorities = formsHelper.PrioritySelectList();
 
             return View();
         }
@@ -47,7 +47,7 @@ namespace TaskManager.Controllers
                 return RedirectToAction("Details", "Projects", new { id = project.ID });
             }
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            ViewBag.Priorities = formsHelper.Priorities();
+            ViewBag.Priorities = formsHelper.PrioritySelectList();
 
             return View(project);
         }
@@ -80,7 +80,7 @@ namespace TaskManager.Controllers
                 project.Tasks = project.Tasks.OrderByDescending(t => t.CompletionPercentage).ToList();
             }
 
-            ViewBag.Priorities = formsHelper.Priorities();
+            ViewBag.Priorities = formsHelper.PrioritySelectList();
             var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
             ViewBag.Developers = formsHelper.DeveloperSelectList();
 

@@ -8,10 +8,12 @@ namespace TaskManager.Models
 {
     public class FormsHelper : Helper
     {
-        public SelectList Priorities()
+        public SelectList PrioritySelectList()
         {
-            var Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
-            return Priorities;
+            var names = Enum.GetNames(typeof(Priority));
+
+            var priorities = new SelectList(names, Priority.Low.ToString());
+            return priorities;
         }
 
         public SelectList DeveloperSelectList()
