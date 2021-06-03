@@ -65,9 +65,12 @@
     </tbody>
 </table>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-task-modal">
-    Add Task
-</button>
+@if (Model.Deadline > DateTime.Now)
+{
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-task-modal">
+        Add Task
+    </button>
+}
 
 <div class="modal fade" id="add-task-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -81,9 +84,9 @@
                 <div class="modal-body">
                     @if (!Html.ViewData.ModelState.IsValid)
                     {
-                    <div class="alert alert-danger">
-                        @Html.ValidationSummary(false, "Errors", new { @class = "text-danger" })
-                    </div>
+                        <div class="alert alert-danger">
+                            @Html.ValidationSummary(false, "Errors", new { @class = "text-danger" })
+                        </div>
                     }
 
                     <div class="form-group">
@@ -105,7 +108,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" value="Add"/>
+                    <input type="submit" class="btn btn-primary" value="Add" />
                 </div>
             }
         </div>

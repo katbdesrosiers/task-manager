@@ -63,10 +63,14 @@ namespace TaskManager.Models
 
             foreach (var project in projects)
             {
-                if (project.Tasks.Count() > 0 && !project.Tasks.Any(t => t.DateCompleted == null))
+                if (project.Tasks.Count() > 0 && project.Tasks.All(t => t.DateCompleted != null))
                 {
                     var latestCompletion = project.Tasks.OrderByDescending(t => t.DateCompleted).FirstOrDefault();
                     project.DateCompleted = latestCompletion.DateCompleted;
+                }
+                else
+                {
+                    project.DateCompleted = null;
                 }
             }
 
