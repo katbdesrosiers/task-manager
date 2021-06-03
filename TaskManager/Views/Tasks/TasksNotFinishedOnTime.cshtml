@@ -25,7 +25,7 @@ else
             @foreach (var task in Model)
             {
                 <tr>
-                    <td>@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)<span class="label label-warning" style="margin-left: 10px;">@task.Comments.Count</span></td>
+                    <td>@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)<span class="label label-warning" style="margin-left: 10px;">@task.Comments.Count comment(s)</span></td>
                     <td>@task.Developer.UserName</td>
                     <td>@task.Deadline.ToShortDateString()</td>
                     <td>@task.CompletionPercentage%</td>
