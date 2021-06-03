@@ -151,16 +151,6 @@
                     CompletionPercentage = 100,
                     DateCompleted = DateTime.Now,
                 };
-                ProjectTask projectTask6 = new ProjectTask
-                {
-                    Name = "Test Task 6",
-                    Deadline = DateTime.Now.AddDays(1),
-                    Priority = Priority.High,
-                    Project = project4,
-                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
-                    CompletionPercentage = 100,
-                    DateCompleted = DateTime.Now
-                };
                 ProjectTask projectTask7 = new ProjectTask
                 {
                     Name = "Test Task 7",
@@ -200,6 +190,16 @@
                     CompletionPercentage = 100,
                     DateCompleted = DateTime.Now
                 };
+                ProjectTask projectTask11 = new ProjectTask
+                {
+                    Name = "Test Task 11",
+                    Deadline = DateTime.Now.AddDays(1),
+                    Priority = Priority.High,
+                    Project = project4,
+                    DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
+                    CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now
+                };
 
                 db.Projects.AddRange(new List<Project>
                 {
@@ -217,7 +217,7 @@
                     projectTask3,
                     projectTask4,
                     projectTask5,
-                    projectTask6,
+                    projectTask11,
                     projectTask7,
                     projectTask8,
                     projectTask9,
@@ -242,7 +242,7 @@
                 };
                 Comment comment3 = new Comment
                 {
-                    Task = projectTask6,
+                    Task = projectTask11,
                     Developer = db.Users.First(u => u.Email == "braden@gmail.com"),
                     Urgent = false,
                     Content = "Test comment 3",

@@ -59,7 +59,7 @@
                 <td>@task.Developer.UserName</td>
                 <td>@task.Deadline.ToShortDateString()</td>
                 <td>@task.CompletionPercentage%</td>
-                <td>@(task.DateCompleted == null ? "Incomplete" : Model.DateCompleted.ToString())</td>
+                <td>@(task.DateCompleted == null ? "Incomplete" : task.DateCompleted.ToString())</td>
             </tr>
         }
     </tbody>
