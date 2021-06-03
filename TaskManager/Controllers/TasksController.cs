@@ -57,13 +57,7 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
 
-            ViewBag.Developers = new SelectList(
-                db.Users.ToList()
-                .Where(u => Membership.UserInRole(u.Id, "developer"))
-                .OrderBy(u => u.UserName),
-                "Id",
-                "UserName",
-                task.Developer.Id);
+            ViewBag.Developers = formsHelper.TaskDevelopers(task);
 
             return View(task);
         }
@@ -82,7 +76,7 @@ namespace TaskManager.Controllers
 
             taskHelper.Remove(task);
 
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
         [Authorize(Roles = "manager")]
@@ -107,13 +101,7 @@ namespace TaskManager.Controllers
 
             taskHelper.ChangeCompletion(task, CompletionPercentage);
 
-            ViewBag.Developers = new SelectList(
-                db.Users.ToList()
-                .Where(u => Membership.UserInRole(u.Id, "developer"))
-                .OrderBy(u => u.UserName),
-                "Id",
-                "UserName",
-                task.Developer.Id);
+            ViewBag.Developers = formsHelper.TaskDevelopers(task);
 
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);

@@ -245,6 +245,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FormsHelper.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\NotificationHelper.cs" />
     <Compile Include="Models\Comment.cs" />

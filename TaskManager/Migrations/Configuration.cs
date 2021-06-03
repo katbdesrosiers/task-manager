@@ -149,15 +149,17 @@
                     Project = project3,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
                     CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now,
                 };
                 ProjectTask projectTask6 = new ProjectTask
                 {
                     Name = "Test Task 6",
-                    Deadline = DateTime.Now.AddDays(30),
+                    Deadline = DateTime.Now.AddDays(1),
                     Priority = Priority.High,
                     Project = project4,
                     DeveloperID = db.Users.First(u => u.Email == "braden@gmail.com").Id,
-                    CompletionPercentage = 100
+                    CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now
                 };
                 ProjectTask projectTask7 = new ProjectTask
                 {
@@ -166,7 +168,8 @@
                     Priority = Priority.Low,
                     Project = project3,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
-                    CompletionPercentage = 100
+                    CompletionPercentage = 100,
+                    DateCompleted = DateTime.Now
                 };
                 ProjectTask projectTask8 = new ProjectTask
                 {
@@ -217,41 +220,6 @@
                     projectTask9,
                     projectTask10
                 });
-
-                // Notifications
-
-                //Notification notif1 = new Notification
-                //{
-                //    Project = project1,
-                //    User = db.Users.First(u => u.Email == "manager@gmail.com"),
-                //    Content = $"Project '{project1.Name}' has been completed!",
-                //};
-                //Notification notif2 = new Notification
-                //{
-                //    Task = projectTask3,
-                //    User = db.Users.First(u => u.Email == "chows@gmail.com"),
-                //    Content = $"Task '{projectTask3.Name}' has one day before the deadline!",
-                //};
-                //Notification notif3 = new Notification
-                //{
-                //    Project = project3,
-                //    User = db.Users.First(u => u.Email == "manager@gmail.com"),
-                //    Content = $"Project '{project3.Name}' has an urgent note!",
-                //};
-                //Notification notif4 = new Notification
-                //{
-                //    Project = project2,
-                //    User = db.Users.First(u => u.Email == "manager@gmail.com"),
-                //    Content = $"Project '{project2.Name}' has passed its deadline with unfinished tasks!",
-                //};
-
-                //db.Notifications.AddRange(new List<Notification>
-                //{
-                //    notif1,
-                //    notif2,
-                //    notif3,
-                //    notif4
-                //});
 
                 // Comments
 

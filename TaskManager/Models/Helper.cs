@@ -36,5 +36,14 @@ namespace TaskManager.Models
 
             return helper;
         }
+
+        public static FormsHelper Forms(ApplicationDbContext context)
+        {
+            var helper = new FormsHelper();
+
+            helper.db = context;
+
+            return helper;
+        }
     }
 }
