@@ -46,7 +46,7 @@
         <tbody>
             <tr>
                 <td>
-                    @if (User.Identity.GetUserId() == Model.Project.ManagerID)
+                    @if (User.Identity.GetUserId() == Model.Project.ManagerID && Model.CompletionPercentage < 100)
                     {
                         using (Html.BeginForm("ChangeDeveloper", "Tasks", new { id = Model.ID, DeveloperID = Model.DeveloperID }, FormMethod.Post, new { @class = "form-inline" }))
                         {
