@@ -84,11 +84,11 @@
     </div>
     <div class="form-group">
         @Html.Label("Priority")
-        @Html.DropDownList("Priority", (SelectList)ViewBag.Priorities, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.DropDownList("Priority", (SelectList)ViewBag.Priorities, new {  @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.Label("Developer")
-        @Html.DropDownList("DeveloperID", (SelectList)ViewBag.Developers, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.DropDownList("DeveloperID", (SelectList)ViewBag.Developers, new { @class = "form-control" })
     </div>
     <input type="submit" value="Add" name="add-task" class="btn btn-primary" />
 }
