@@ -44,11 +44,11 @@ namespace TaskManager.Controllers
             if (ModelState.IsValid)
             {
                 projectHelper.Add(project, user);
-                return RedirectToAction("Index"); //change this to redirect to project details
+                return RedirectToAction("Details", "Projects", new { id = project.ID });
             }
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             ViewBag.Priorities = formsHelper.Priorities();
-            
+
             return View(project);
         }
 
@@ -112,7 +112,7 @@ namespace TaskManager.Controllers
             db.Projects.Remove(project);
             db.SaveChanges();
 
-            return RedirectToAction("Index");//change this to go to dashboard
+            return RedirectToAction("Index");
         }
     }
 }
