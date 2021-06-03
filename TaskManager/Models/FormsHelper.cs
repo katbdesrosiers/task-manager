@@ -13,23 +13,24 @@ namespace TaskManager.Models
             var Priorities = new SelectList(Enum.GetValues(typeof(Priority)));
             return Priorities;
         }
-        public SelectList ProjectDevelopers(IEnumerable<ApplicationUser> developers)
+
+        public SelectList DeveloperSelectList()
         {
-            var Developers = new SelectList(developers, "Id", "UserName");
-            return Developers;
+            return DeveloperSelectList(null);
         }
 
-        public SelectList TaskDevelopers(ProjectTask task)
+        public SelectList DeveloperSelectList(ApplicationUser selected)
         {
-            var Developers = new SelectList(
+            var selectedID = selected != null ? selected.Id : null;
+
+            var developers = new SelectList(
                 db.Users.ToList()
                 .Where(u => Membership.UserInRole(u.Id, "developer"))
                 .OrderBy(u => u.UserName),
                 "Id",
-                "UserName",
-                task.Developer.Id);
+                "UserName", selectedID);
 
-            return Developers;
+            return developers;
         }
     }
 }

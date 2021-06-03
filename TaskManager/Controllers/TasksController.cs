@@ -57,7 +57,7 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
 
-            ViewBag.Developers = formsHelper.TaskDevelopers(task);
+            ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 
             return View(task);
         }
@@ -101,7 +101,7 @@ namespace TaskManager.Controllers
 
             taskHelper.ChangeCompletion(task, CompletionPercentage);
 
-            ViewBag.Developers = formsHelper.TaskDevelopers(task);
+            ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);

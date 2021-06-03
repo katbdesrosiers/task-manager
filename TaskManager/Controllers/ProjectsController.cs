@@ -82,7 +82,7 @@ namespace TaskManager.Controllers
 
             ViewBag.Priorities = formsHelper.Priorities();
             var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
-            ViewBag.Developers = formsHelper.ProjectDevelopers(developers);
+            ViewBag.Developers = formsHelper.DeveloperSelectList();
 
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
