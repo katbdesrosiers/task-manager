@@ -65,32 +65,51 @@
     </tbody>
 </table>
 
-@using (Html.BeginForm("Create", "Tasks", new { ProjectID = Model.ID }))
-{
-    if (!Html.ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger">
-            @Html.ValidationSummary(false, "Errors", new { @class = "text-danger" })
-        </div>
-    }
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-task-modal">
+    Add Task
+</button>
 
-    <div class="form-group">
-        @Html.Label("New Task")
-        <input type="text" name="Name" class="form-control" />
+<div class="modal fade" id="add-task-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Task</h4>
+            </div>
+            @using (Html.BeginForm("Create", "Tasks", new { ProjectID = Model.ID }))
+            {
+                <div class="modal-body">
+                    @if (!Html.ViewData.ModelState.IsValid)
+                    {
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary(false, "Errors", new { @class = "text-danger" })
+                    </div>
+                    }
+
+                    <div class="form-group">
+                        @Html.Label("New Task")
+                        <input type="text" name="Name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Deadline")
+                        <input type="date" name="Deadline" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Priority")
+                        @Html.DropDownList("Priority", (SelectList)ViewBag.Priorities, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Developer")
+                        @Html.DropDownList("DeveloperID", (SelectList)ViewBag.Developers, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Add"/>
+                </div>
+            }
+        </div>
     </div>
-    <div class="form-group">
-        @Html.Label("Deadline")
-        <input type="date" name="Deadline" class="form-control" />
-    </div>
-    <div class="form-group">
-        @Html.Label("Priority")
-        @Html.DropDownList("Priority", (SelectList)ViewBag.Priorities, new {  @class = "form-control" })
-    </div>
-    <div class="form-group">
-        @Html.Label("Developer")
-        @Html.DropDownList("DeveloperID", (SelectList)ViewBag.Developers, new { @class = "form-control" })
-    </div>
-    <input type="submit" value="Add" name="add-task" class="btn btn-primary" />
-}
+
 
 
