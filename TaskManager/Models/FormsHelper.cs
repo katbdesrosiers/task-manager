@@ -15,7 +15,7 @@ namespace TaskManager.Models
         }
         public SelectList ProjectDevelopers(IEnumerable<ApplicationUser> developers)
         {
-            var Developers = new SelectList(developers, "Id", "Email");
+            var Developers = new SelectList(developers, "Id", "UserName");
             return Developers;
         }
 
