@@ -58,8 +58,6 @@ namespace TaskManager.Models
 
         public void AddComment(ProjectTask task, Comment comment, NotificationHelper notificationHelper)
         {
-            var notifHelper = Notification(db);
-
             task.Comments.Add(comment);
 
             if (comment.Urgent)

@@ -1,4 +1,5 @@
-﻿@model ICollection<TaskManager.Models.ProjectTask>
+﻿@model IEnumerable<IGrouping<Project, ProjectTask>>
+@using TaskManager.Models
 
 @{
     ViewBag.Title = "Index";
@@ -6,27 +7,25 @@
 
 <h2>Tasks Dashboard</h2>
 
-<div class="panel panel-info">
-    <div class="panel-heading">All Tasks</div>
-    <div class="panel-body">
-        <div class="threes">
-            @foreach (var task in Model)
-            {
-            <div class="panel panel-@task.PriorityClassName self-start">
-                <div class="panel-heading">@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null) - <span class="small">@task.Project.Name</span><span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
-                @if (task.DateCompleted != null)
-                {
-                    <div class="panel-footer">Completed on: @task.DateCompleted</div>
-                }
-                else
-                {
-                    <div class="panel-footer">Completion Percentage : @task.CompletionPercentage%</div>
-                }
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: @task.CompletionPercentage%;" aria-valuenow="@task.CompletionPercentage" aria-valuemin="0" aria-valuemax="100">@task.CompletionPercentage%</div>
+<div>
+    @foreach (var group in Model)
+    {
+        <div class="panel panel-info">
+            <div class="panel-heading">@group.Key.Name</div>
+            <div class="panel-body">
+                <div class="threes">
+                    @foreach (var task in group)
+                    {
+                        <div class="panel panel-@task.PriorityClassName self-start">
+                            <div class="panel-heading">@Html.ActionLink(task.Name, "Details", "Tasks", new { id = task.ID }, null)<span class="pull-right">@task.Deadline.ToShortDateString()</span></div>
+                            <div class="panel-footer">@(task.DateCompleted != null ? "Completed on: "+task.DateCompleted : "Completion Percentage: "+@task.CompletionPercentage+"%")</div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: @task.CompletionPercentage%;" aria-valuenow="@task.CompletionPercentage" aria-valuemin="0" aria-valuemax="100">@task.CompletionPercentage%</div>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
-            }
         </div>
-    </div>
+    }
 </div>
