@@ -10,7 +10,7 @@ namespace TaskManager.Controllers
     [Authorize]
     public class HomeController : TaskManagerController
     {
-        public ActionResult Index() //change method to check role of user logged in
+        public ActionResult Index()
         {
             if (User.IsInRole("manager"))
             {
