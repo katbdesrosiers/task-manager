@@ -13,6 +13,33 @@ namespace TaskManager.Models
             user.Projects.Add(project);
             db.SaveChanges();
         }
+        
+        public void Remove(Project project)
+        {
+            db.Projects.Remove(project);
+            db.SaveChanges();
+        }
+
+        public ICollection<ProjectTask> Tasks(Project project, string filter, string sort)
+        {
+            IEnumerable<ProjectTask> tasks = project.Tasks.OrderByDescending(t => t.CompletionPercentage);
+
+            if (filter == "hide")
+            {
+                tasks = project.Tasks.Where(t => t.CompletionPercentage != 100);
+            }
+            else if (sort == "highPriority")
+            {
+                tasks = project.Tasks.OrderByDescending(t => t.Priority).ThenByDescending(t => t.CompletionPercentage);
+            }
+
+            return tasks.ToList();
+        }
+
+        public ICollection<Project> OverBudget()
+        {
+            return db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost).ToList();
+        }
 
         public void CalcTotalCost()
         {

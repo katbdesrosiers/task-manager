@@ -62,26 +62,12 @@ namespace TaskManager.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            var displayProject = project;
-
             ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
             ViewBag.Sort = sort == "highPriority" ? "normal" : "highPriority";
 
-            if (filter == "hide")
-            {
-                project.Tasks = project.Tasks.Where(t => t.CompletionPercentage != 100).ToList();
-            }
-            else if (sort == "highPriority")
-            {
-                project.Tasks = project.Tasks.OrderByDescending(t => t.Priority).ThenByDescending(t => t.CompletionPercentage).ToList();
-            }
-            else if (String.IsNullOrEmpty(filter) && String.IsNullOrEmpty(sort))
-            {
-                project.Tasks = project.Tasks.OrderByDescending(t => t.CompletionPercentage).ToList();
-            }
+            project.Tasks = projectHelper.Tasks(project, filter, sort);
 
             ViewBag.Priorities = formsHelper.PrioritySelectList();
-            var developers = db.Users.ToList().Where(u => Membership.UserInRole(u.Id, "developer"));
             ViewBag.Developers = formsHelper.DeveloperSelectList();
 
             var user = CurrentUser();
@@ -91,11 +77,9 @@ namespace TaskManager.Controllers
 
         public ActionResult OverBudget()
         {
-            var overBudgetProjects = db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost);
-
             var user = CurrentUser();
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            return View(overBudgetProjects.ToList());
+            return View(projectHelper.OverBudget());
         }
 
         [HttpPost]
@@ -109,8 +93,7 @@ namespace TaskManager.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            db.Projects.Remove(project);
-            db.SaveChanges();
+            projectHelper.Remove(project);
 
             return RedirectToAction("Index");
         }
