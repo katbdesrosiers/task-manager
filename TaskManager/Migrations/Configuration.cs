@@ -85,7 +85,6 @@
                     Priority = Priority.High,
                     Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
                     Budget = 15000,
-                    DateCompleted = DateTime.Now.AddDays(5),
                 };
                 Project project4 = new Project // Past deadline
                 {
@@ -102,7 +101,6 @@
                     Priority = Priority.Low,
                     Manager = db.Users.First(u => u.Email == "manager@gmail.com"),
                     Budget = 500,
-                    DateCompleted = DateTime.Now.AddDays(15),
                 };
 
                 // Project Tasks
@@ -159,7 +157,7 @@
                     Project = project3,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
                     CompletionPercentage = 100,
-                    DateCompleted = DateTime.Now
+                    DateCompleted = DateTime.Now.AddDays(15)
                 };
                 ProjectTask projectTask8 = new ProjectTask
                 {
@@ -178,7 +176,7 @@
                     Project = project5,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
                     CompletionPercentage = 100,
-                    DateCompleted = DateTime.Now
+                    DateCompleted = DateTime.Now.AddDays(5)
                 };
                 ProjectTask projectTask10 = new ProjectTask
                 {
