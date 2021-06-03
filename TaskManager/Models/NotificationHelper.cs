@@ -23,7 +23,7 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CreatePastDeadlineNotification()
+        public void CreatePassedDeadlineNotification()
         {
             var projects = db.Projects.ToList();
 
