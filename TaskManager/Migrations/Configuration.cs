@@ -128,7 +128,7 @@
                     Deadline = DateTime.Now.AddDays(5),
                     Priority = Priority.Low,
                     Project = project2,
-                    CompletionPercentage = 66,
+                    CompletionPercentage = 0,
                     DeveloperID = db.Users.First(u => u.Email == "chows@gmail.com").Id
                 };
                 ProjectTask projectTask4 = new ProjectTask
@@ -137,13 +137,14 @@
                     Deadline = DateTime.Now.AddDays(1),
                     Priority = Priority.High,
                     Project = project2,
-                    DeveloperID = db.Users.First(u => u.Email == "katherine@gmail.com").Id
+                    DeveloperID = db.Users.First(u => u.Email == "katherine@gmail.com").Id,
+                    CompletionPercentage = 66
                 };
                 ProjectTask projectTask5 = new ProjectTask
                 {
                     Name = "Test Task 5",
                     Deadline = DateTime.Now.AddDays(25),
-                    Priority = Priority.Low,
+                    Priority = Priority.High,
                     Project = project3,
                     DeveloperID = db.Users.First(u => u.Email == "elizabeth@gmail.com").Id,
                     CompletionPercentage = 100,

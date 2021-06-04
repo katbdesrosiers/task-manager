@@ -32,11 +32,16 @@
 <div style="display: flex;">
     @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, filter = ViewBag.Filter }))
     {
-        <input type="submit" value="Hide Completed" class="btn btn-success" />
+        <input type="submit"
+               value="Hide Completed"
+               class="btn btn-@(ViewBag.Filter == "hide" ? "success" : "default")" />
     }
     @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, sort = ViewBag.Sort }))
     {
-        <input style="margin-left: 10px;" type="submit" value="Priority" class="btn btn-success" />
+        <input style="margin-left: 10px;"
+               type="submit"
+               value="Priority"
+               class="btn btn-@(ViewBag.Sort == "highPriority" ? "success" : "default")" />
     }
 </div>
 
