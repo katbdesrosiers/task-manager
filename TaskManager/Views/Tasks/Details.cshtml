@@ -16,6 +16,7 @@
         <div>
             @using (Html.BeginForm("Delete", "Tasks", new { id = Model.ID }))
             {
+                @Html.AntiForgeryToken()
                 <input type="submit" value="Delete" class="btn btn-danger" />
             }
         </div>
@@ -50,6 +51,7 @@
                     {
                         using (Html.BeginForm("ChangeDeveloper", "Tasks", new { id = Model.ID, DeveloperID = Model.DeveloperID }, FormMethod.Post, new { @class = "form-inline" }))
                         {
+                            @Html.AntiForgeryToken()
                             @Html.DropDownListFor(model => model.DeveloperID, (SelectList)ViewBag.Developers, new { @class = "form-control" })
                             <input type="submit" class="btn btn-default" value="Update" />
                         }
@@ -83,6 +85,7 @@
         <div class="panel-body">
             @using (Html.BeginForm("Comment", "Tasks", new { TaskID = Model.ID, DeveloperID = User.Identity.GetUserId(), Urgent = true }))
             {
+                @Html.AntiForgeryToken()
                 @Html.TextArea("Content", new { style = "max-width: 900px; width: 100%;" }) <br />
                 <input type="submit" value="Submit" class="btn btn-danger" style="margin-top: 4px;" />
             }
@@ -111,6 +114,7 @@
                 <div class="panel-body">
                     @using (Html.BeginForm("UpdatePercent", "Tasks", new { id = Model.ID }))
                     {
+                        @Html.AntiForgeryToken()
                         <label>Percentage: <span id="percent"></span>%</label>
                         @Html.EditorFor(model => model.CompletionPercentage, new { htmlAttributes = new { type = "range", min = "0", max = "100", value = @Model.CompletionPercentage, @class = "slider", id = "slider", style = "max-width: 900px; width: 100%;" } })
                         <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 15px;" />
@@ -125,6 +129,7 @@
                 <div class="panel-body">
                     @using (Html.BeginForm("Comment", "Tasks", new { TaskID = Model.ID, DeveloperID = User.Identity.GetUserId(), Urgent = false }))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.TextArea("Content", new { style = "max-width: 1500px; width: 100%;" }) <br />
                         <input type="submit" value="Submit" class="btn btn-primary" style="margin-top: 4px;" />
                     }

@@ -24,6 +24,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "manager")]
         public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority,DeveloperID")] ProjectTask task)
         {
@@ -62,6 +63,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "manager")]
         public ActionResult Delete(int? id)
         {
@@ -87,6 +89,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "developer")]
         public ActionResult UpdatePercent(int? id, int CompletionPercentage)
         {
@@ -108,6 +111,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "developer")]
         public ActionResult Comment([Bind(Include = "Content,TaskID,DeveloperID,Urgent")] Comment comment)
         {
@@ -125,6 +129,7 @@ namespace TaskManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "manager")]
         public ActionResult ChangeDeveloper(int? id, string DeveloperID)
         {

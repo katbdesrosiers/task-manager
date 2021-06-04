@@ -12,6 +12,7 @@
     <div>
         @using (Html.BeginForm("Delete", "Projects", new { id = Model.ID }))
         {
+            @Html.AntiForgeryToken()
             <input type="submit" value="Delete" class="btn btn-danger" />
         }
     </div>
@@ -65,7 +66,7 @@
     </tbody>
 </table>
 
-@if (Model.Deadline > DateTime.Now)
+@if (Model.Deadline.Date > DateTime.Now.Date)
 {
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-task-modal">
         Add Task
@@ -81,6 +82,7 @@
             </div>
             @using (Html.BeginForm("Create", "Tasks", new { ProjectID = Model.ID }))
             {
+                @Html.AntiForgeryToken()
                 <div class="modal-body">
                     @if (!Html.ViewData.ModelState.IsValid)
                     {
