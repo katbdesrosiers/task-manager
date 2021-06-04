@@ -44,6 +44,10 @@ namespace TaskManager.Models
         public void CalcTotalCost(Project project)
         {
             var daysToComplete = (project.DateCompleted.Value.Date - project.DateCreated.Date).Days;
+
+            if (daysToComplete == 0)
+                daysToComplete = 1;
+
             double managerCost = daysToComplete * project.Manager.Salary;
             double devCost = project.Tasks.Sum(t => t.Developer.Salary * daysToComplete);
 

@@ -75,7 +75,9 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
+            var project = task.Project;
             taskHelper.Remove(task);
+            projectHelper.CheckProjectCompletion(project, notificationHelper);
 
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }

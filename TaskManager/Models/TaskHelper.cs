@@ -31,7 +31,7 @@ namespace TaskManager.Models
             project.DateCompleted = null;
             project.TotalCost = 0;
 
-            var notif = db.Notifications.ToList().FirstOrDefault(n => n.Content == $"{project.Name} has been completed!");
+            var notif = db.Notifications.ToList().FirstOrDefault(n => n.Content == $"(Project) {project.Name} has been completed!");
 
             if (notif != null)
                 db.Notifications.Remove(notif);
@@ -42,6 +42,12 @@ namespace TaskManager.Models
         public void Remove(ProjectTask task)
         {
             db.Tasks.Remove(task);
+
+            var notifs = db.Notifications.ToList().Where(n => n.ItemID == task.ID && !n.IsProject).ToList();
+
+            if (notifs.Count > 0)
+                db.Notifications.RemoveRange(notifs);
+
             db.SaveChanges();
         }
 
