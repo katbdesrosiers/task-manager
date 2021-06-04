@@ -17,7 +17,6 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
 
             taskHelper.CheckTaskDeadline(user, notificationHelper);
-            projectHelper.CalcTotalCost(user);
 
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             var tasks = user.Tasks.GroupBy(t => t.Project);
@@ -99,7 +98,7 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
-            taskHelper.ChangeCompletion(task, CompletionPercentage, notificationHelper);
+            taskHelper.ChangeCompletion(task, CompletionPercentage, notificationHelper, projectHelper);
 
             ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 

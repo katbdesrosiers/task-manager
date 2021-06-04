@@ -13,7 +13,7 @@ namespace TaskManager.Models
             user.Projects.Add(project);
             db.SaveChanges();
         }
-        
+
         public void Remove(Project project)
         {
             db.Projects.Remove(project);
@@ -41,38 +41,30 @@ namespace TaskManager.Models
             return db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost).ToList();
         }
 
-        public void CalcTotalCost(ApplicationUser user)
+        public void CalcTotalCost(Project project)
         {
-            var completeProjects = user.Projects.Where(p => p.DateCompleted != null).ToList();
+            var daysToComplete = (project.DateCompleted.Value.Date - project.DateCreated.Date).Days;
+            double managerCost = daysToComplete * project.Manager.Salary;
+            double devCost = project.Tasks.Sum(t => t.Developer.Salary * daysToComplete);
 
-            foreach (var project in completeProjects)
-            {
-                var daysToComplete = (project.DateCompleted.Value.Date - project.DateCreated.Date).Days;
-                double managerCost = daysToComplete * project.Manager.Salary;
-                double devCost = project.Tasks.Sum(t => t.Developer.Salary * daysToComplete);
-
-                project.TotalCost = managerCost + devCost;
-            }
+            project.TotalCost = managerCost + devCost;
 
             db.SaveChanges();
         }
 
-        public void CheckProjectsCompletion(ApplicationUser user)
+        public void CheckProjectCompletion(Project project, NotificationHelper notificationHelper)
         {
-            var projects = user.Projects.ToList();
-
-            foreach (var project in projects)
+            if (project.Tasks.Count() > 0 && project.Tasks.All(t => t.DateCompleted != null))
             {
-                if (project.Tasks.Count() > 0 && project.Tasks.All(t => t.DateCompleted != null))
-                {
-                    var latestCompletion = project.Tasks.OrderByDescending(t => t.DateCompleted).FirstOrDefault();
-                    project.DateCompleted = latestCompletion.DateCompleted;
-                }
-                else
-                {
-                    project.DateCompleted = null;
-                    project.TotalCost = 0;
-                }
+                var latestCompletion = project.Tasks.OrderByDescending(t => t.DateCompleted).FirstOrDefault();
+                project.DateCompleted = latestCompletion.DateCompleted;
+                notificationHelper.CreateProjectCompleteNotification(project);
+                CalcTotalCost(project);
+            }
+            else
+            {
+                project.DateCompleted = null;
+                project.TotalCost = 0;
             }
 
             db.SaveChanges();
