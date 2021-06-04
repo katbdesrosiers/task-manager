@@ -16,7 +16,7 @@ namespace TaskManager.Models
             {
                 ItemID = taskID,
                 User = task.Project.Manager,
-                Content = $"{task.Name} has an urgent comment!"
+                Content = $"(Task) {task.Name} has an urgent comment!"
             };
 
             db.Notifications.Add(n);
@@ -39,7 +39,7 @@ namespace TaskManager.Models
                         {
                             ItemID = projectID,
                             User = project.Manager,
-                            Content = $"{project.Name} has passed its deadline with incomplete tasks!",
+                            Content = $"(Project) {project.Name} has passed its deadline with incomplete tasks!",
                             IsProject = true,
                         };
 
@@ -59,7 +59,7 @@ namespace TaskManager.Models
                 {
                     ItemID = project.ID,
                     User = project.Manager,
-                    Content = $"{project.Name} has been completed!",
+                    Content = $"(Project) {project.Name} has been completed!",
                     IsProject = true,
                 };
 
@@ -80,7 +80,7 @@ namespace TaskManager.Models
                 {
                     ItemID = taskID,
                     User = task.Project.Manager,
-                    Content = $"{task.Name} has been completed!",
+                    Content = $"(Task) {task.Name} has been completed!",
                 };
 
                 if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
@@ -98,7 +98,7 @@ namespace TaskManager.Models
             {
                 ItemID = taskID,
                 User = task.Developer,
-                Content = $"{task.Name} has 1 day until the deadline!"
+                Content = $"(Task) {task.Name} has 1 day until the deadline!"
             };
 
             db.Notifications.Add(n);

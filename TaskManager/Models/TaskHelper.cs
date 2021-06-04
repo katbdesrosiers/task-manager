@@ -31,7 +31,7 @@ namespace TaskManager.Models
             project.DateCompleted = null;
             project.TotalCost = 0;
 
-            var notif = db.Notifications.FirstOrDefault(n => n.Content == $"{project.Name} has been completed!");
+            var notif = db.Notifications.ToList().FirstOrDefault(n => n.Content == $"{project.Name} has been completed!");
 
             if (notif != null)
                 db.Notifications.Remove(notif);
