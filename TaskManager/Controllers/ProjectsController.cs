@@ -21,7 +21,6 @@ namespace TaskManager.Controllers
 
             notificationHelper.CreatePassedDeadlineNotification(user);
             notificationHelper.CheckProjectsComplete(user);
-            notificationHelper.CheckTasksComplete(user);
 
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));

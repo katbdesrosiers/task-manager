@@ -99,7 +99,7 @@ namespace TaskManager.Controllers
             if (task == null)
                 return HttpNotFound();
 
-            taskHelper.ChangeCompletion(task, CompletionPercentage);
+            taskHelper.ChangeCompletion(task, CompletionPercentage, notificationHelper);
 
             ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 

@@ -44,12 +44,15 @@ namespace TaskManager.Models
                 .ToList();
         }
 
-        public void ChangeCompletion(ProjectTask task, int percentage)
+        public void ChangeCompletion(ProjectTask task, int percentage, NotificationHelper notificationHelper)
         {
             task.CompletionPercentage = percentage;
 
             if (percentage == 100)
+            {
                 task.DateCompleted = DateTime.Now;
+                notificationHelper.CreateTaskCompleteNotification(task);
+            }
             else
                 task.DateCompleted = null;
 

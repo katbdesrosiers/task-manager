@@ -77,12 +77,8 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CheckTasksComplete(ApplicationUser user)
+        public void CreateTaskCompleteNotification(ProjectTask task)
         {
-            var tasks = user.Tasks.ToList();
-
-            foreach (var task in tasks)
-            {
                 if (task.CompletionPercentage == 100)
                 {
                     var taskID = task.ID;
@@ -97,7 +93,6 @@ namespace TaskManager.Models
                     if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
                         db.Notifications.Add(n);
                 }
-            }
 
             db.SaveChanges();
         }
