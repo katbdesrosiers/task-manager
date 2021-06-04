@@ -51,27 +51,20 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CheckProjectsComplete(ApplicationUser user)
+        public void CreateProjectCompleteNotification(Project project)
         {
-            var projects = user.Projects.ToList();
-
-            foreach (var project in projects)
+            if (project.DateCompleted != null)
             {
-                if (project.DateCompleted != null)
+                Notification n = new Notification
                 {
-                    var projectID = project.ID;
+                    ItemID = project.ID,
+                    User = project.Manager,
+                    Content = $"{project.Name} has been completed!",
+                    IsProject = true,
+                };
 
-                    Notification n = new Notification
-                    {
-                        ItemID = projectID,
-                        User = project.Manager,
-                        Content = $"{project.Name} has been completed!",
-                        IsProject = true,
-                    };
-
-                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
-                        db.Notifications.Add(n);
-                }
+                if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                    db.Notifications.Add(n);
             }
 
             db.SaveChanges();
@@ -79,20 +72,20 @@ namespace TaskManager.Models
 
         public void CreateTaskCompleteNotification(ProjectTask task)
         {
-                if (task.CompletionPercentage == 100)
+            if (task.CompletionPercentage == 100)
+            {
+                var taskID = task.ID;
+
+                Notification n = new Notification
                 {
-                    var taskID = task.ID;
+                    ItemID = taskID,
+                    User = task.Project.Manager,
+                    Content = $"{task.Name} has been completed!",
+                };
 
-                    Notification n = new Notification
-                    {
-                        ItemID = taskID,
-                        User = task.Project.Manager,
-                        Content = $"{task.Name} has been completed!",
-                    };
-
-                    if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
-                        db.Notifications.Add(n);
-                }
+                if (!db.Notifications.ToList().Any(notif => notif.Content == n.Content))
+                    db.Notifications.Add(n);
+            }
 
             db.SaveChanges();
         }

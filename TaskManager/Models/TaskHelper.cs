@@ -28,6 +28,8 @@ namespace TaskManager.Models
         public void Add(ProjectTask task, Project project)
         {
             project.Tasks.Add(task);
+            project.DateCompleted = null;
+            project.TotalCost = 0;
             db.SaveChanges();
         }
 
@@ -44,7 +46,7 @@ namespace TaskManager.Models
                 .ToList();
         }
 
-        public void ChangeCompletion(ProjectTask task, int percentage, NotificationHelper notificationHelper)
+        public void ChangeCompletion(ProjectTask task, int percentage, NotificationHelper notificationHelper, ProjectHelper projectHelper)
         {
             task.CompletionPercentage = percentage;
 
@@ -52,6 +54,7 @@ namespace TaskManager.Models
             {
                 task.DateCompleted = DateTime.Now;
                 notificationHelper.CreateTaskCompleteNotification(task);
+                projectHelper.CheckProjectCompletion(task.Project, notificationHelper);
             }
             else
                 task.DateCompleted = null;
