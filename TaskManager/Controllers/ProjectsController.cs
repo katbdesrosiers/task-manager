@@ -18,7 +18,7 @@ namespace TaskManager.Controllers
             projectHelper.CalcTotalCost();
             projectHelper.CheckProjectsCompletion();
 
-            notificationHelper.CreatePastDeadlineNotification();
+            notificationHelper.CreatePassedDeadlineNotification();
             notificationHelper.CheckProjectsComplete();
             notificationHelper.CheckTasksComplete();
 

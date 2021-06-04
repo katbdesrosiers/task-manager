@@ -1,13 +1,14 @@
 ### Table of Contents
 
-- [Getting Started](#getting-started)
+- [Setup](#setup)
+- [Usage](#usage)
 
 
 # TaskManager
 
 ![Project Manager Dashboard](https://user-images.githubusercontent.com/2252884/120699256-c88f8a00-c475-11eb-923c-fc8a5c6c3462.png)
 
-## Getting Started
+## Setup
 
 1. Run the following commands in `Windows PowerShell` to get a copy of this project.
 
@@ -29,3 +30,18 @@ There should be a message at the top of the console pane:
 4. In the console, run the command `Update-Database`
 5. Clean the solution with `Build -> Clean Solution`
 6. Press `ctrl + F5` to run the project, it should open in your default browser
+
+## Usage
+
+There are several user accounts and projects with tasks included in the seed data.
+
+| Username  | Role      |
+| --------- | --------- |
+| manager   | manager   |
+| manager2  | manager   |
+| katherine | developer |
+| elizabeth | developer |
+| chows     | developer |
+| braden    | developer |
+
+`P3nguin!` is the password for all user accounts.
