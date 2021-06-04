@@ -41,9 +41,9 @@ namespace TaskManager.Models
             return db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost).ToList();
         }
 
-        public void CalcTotalCost()
+        public void CalcTotalCost(ApplicationUser user)
         {
-            var completeProjects = db.Projects.Where(p => p.DateCompleted != null).ToList();
+            var completeProjects = user.Projects.Where(p => p.DateCompleted != null).ToList();
 
             foreach (var project in completeProjects)
             {
@@ -57,9 +57,9 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CheckProjectsCompletion()
+        public void CheckProjectsCompletion(ApplicationUser user)
         {
-            var projects = db.Projects.ToList();
+            var projects = user.Projects.ToList();
 
             foreach (var project in projects)
             {
@@ -71,6 +71,7 @@ namespace TaskManager.Models
                 else
                 {
                     project.DateCompleted = null;
+                    project.TotalCost = 0;
                 }
             }
 

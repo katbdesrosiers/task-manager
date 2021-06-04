@@ -15,12 +15,13 @@ namespace TaskManager.Controllers
         public ActionResult Index()
         {
             var user = CurrentUser();
-            projectHelper.CalcTotalCost();
-            projectHelper.CheckProjectsCompletion();
+            
+            projectHelper.CheckProjectsCompletion(user);
+            projectHelper.CalcTotalCost(user);
 
-            notificationHelper.CreatePassedDeadlineNotification();
-            notificationHelper.CheckProjectsComplete();
-            notificationHelper.CheckTasksComplete();
+            notificationHelper.CreatePassedDeadlineNotification(user);
+            notificationHelper.CheckProjectsComplete(user);
+            notificationHelper.CheckTasksComplete(user);
 
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));

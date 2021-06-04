@@ -23,9 +23,9 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CreatePassedDeadlineNotification()
+        public void CreatePassedDeadlineNotification(ApplicationUser user)
         {
-            var projects = db.Projects.ToList();
+            var projects = user.Projects.ToList();
 
             foreach (var project in projects)
             {
@@ -51,9 +51,9 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CheckProjectsComplete()
+        public void CheckProjectsComplete(ApplicationUser user)
         {
-            var projects = db.Projects.ToList();
+            var projects = user.Projects.ToList();
 
             foreach (var project in projects)
             {
@@ -77,9 +77,9 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public void CheckTasksComplete()
+        public void CheckTasksComplete(ApplicationUser user)
         {
-            var tasks = db.Tasks.ToList();
+            var tasks = user.Tasks.ToList();
 
             foreach (var task in tasks)
             {
