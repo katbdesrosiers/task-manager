@@ -26,11 +26,11 @@ namespace TaskManager.Models
 
             if (filter == "hide")
             {
-                tasks = project.Tasks.Where(t => t.CompletionPercentage != 100);
+                tasks = tasks.Where(t => t.CompletionPercentage != 100);
             }
             else if (sort == "highPriority")
             {
-                tasks = project.Tasks.OrderByDescending(t => t.Priority).ThenByDescending(t => t.CompletionPercentage);
+                tasks = tasks.OrderByDescending(t => t.Priority).ThenByDescending(t => t.CompletionPercentage);
             }
 
             return tasks.ToList();
