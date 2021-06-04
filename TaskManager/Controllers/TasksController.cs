@@ -17,7 +17,6 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
 
             taskHelper.CheckTaskDeadline(user, notificationHelper);
-            projectHelper.CalcTotalCost(user);
 
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             var tasks = user.Tasks.GroupBy(t => t.Project);
