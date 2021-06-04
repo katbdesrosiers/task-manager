@@ -10,7 +10,7 @@
 <div>
     @foreach (var group in Model)
     {
-        <div class="panel panel-info">
+        <div class="panel panel-@group.Key.PriorityClassName">
             <div class="panel-heading">@group.Key.Name</div>
             <div class="panel-body">
                 <div class="threes">
