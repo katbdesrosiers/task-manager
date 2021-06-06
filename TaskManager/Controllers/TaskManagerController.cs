@@ -70,5 +70,39 @@ namespace TaskManager.Controllers
 
             return result;
         }
+
+        protected object ProtectTask(int? id, ApplicationUser user, string role)
+        {
+            HttpStatusCode status = HttpStatusCode.OK;
+            ProjectTask task = null;
+            object result;
+
+            if (id == null)
+            {
+                status = HttpStatusCode.BadRequest;
+            }
+            else if (role != null && !userManager.IsInRole(user.Id, role))
+            {
+                status = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                task = db.Tasks.Find(id);
+
+                if (task == null)
+                    status = HttpStatusCode.NotFound;
+                else if (Membership.UserInRole(user.Id, "manager") && task.Project.ManagerID != user.Id)
+                    status = HttpStatusCode.Forbidden;
+                else if (Membership.UserInRole(user.Id, "developer") && task.DeveloperID != user.Id)
+                    status = HttpStatusCode.Forbidden;
+            }
+
+            if (status != HttpStatusCode.OK)
+                result = new HttpStatusCodeResult(status);
+            else
+                result = task;
+
+            return result;
+        }
     }
 }
