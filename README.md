@@ -1,10 +1,9 @@
+# TaskManager
+
 ### Table of Contents
 
 - [Setup](#setup)
 - [Usage](#usage)
-
-
-# TaskManager
 
 ![Project Manager Dashboard](https://user-images.githubusercontent.com/2252884/120939610-7d2be480-c6de-11eb-86bd-42c84310867d.png)
 
