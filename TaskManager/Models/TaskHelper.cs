@@ -51,9 +51,10 @@ namespace TaskManager.Models
             db.SaveChanges();
         }
 
-        public List<ProjectTask> OverdueTasks()
+        public List<ProjectTask> OverdueTasks(ApplicationUser user)
         {
             return db.Tasks
+                .Where(t => t.Project.ManagerID == user.Id)
                 .Where(t => t.DateCompleted == null && t.Deadline < DateTime.Now)
                 .ToList();
         }

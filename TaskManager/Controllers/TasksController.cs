@@ -100,7 +100,7 @@ namespace TaskManager.Controllers
 
             DefaultViewBag(user);
 
-            return View(taskHelper.OverdueTasks());
+            return View(taskHelper.OverdueTasks(user));
         }
 
         [HttpPost]
