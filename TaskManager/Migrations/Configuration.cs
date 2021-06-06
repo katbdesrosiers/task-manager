@@ -200,8 +200,6 @@
                     DateCompleted = DateTime.Now
                 };
 
-                NotificationHelper notifHelper = Helper.Notification(db);
-
                 db.Projects.AddRange(new List<Project>
                 {
                     project1,
@@ -264,6 +262,9 @@
                     comment4
                 });
 
+                NotificationHelper notifHelper = Helper.Notification(db);
+                ProjectHelper projectHelper = Helper.Project(db);
+
                 // Notifications for tasks already completed
 
                 notifHelper.CreateTaskCompleteNotification(projectTask10);
@@ -271,6 +272,11 @@
                 notifHelper.CreateTaskCompleteNotification(projectTask7);
                 notifHelper.CreateTaskCompleteNotification(projectTask9);
                 notifHelper.CreateTaskCompleteNotification(projectTask11);
+
+                // Project completion for projects already completed
+
+                projectHelper.CheckProjectCompletion(project3, notifHelper);
+                projectHelper.CheckProjectCompletion(project5, notifHelper);
             }
         }
     }
