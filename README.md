@@ -6,7 +6,7 @@
 
 # TaskManager
 
-![Project Manager Dashboard](https://user-images.githubusercontent.com/2252884/120699256-c88f8a00-c475-11eb-923c-fc8a5c6c3462.png)
+[Project Manager Dashboard](https://user-images.githubusercontent.com/2252884/120939610-7d2be480-c6de-11eb-86bd-42c84310867d.png)
 
 ## Setup
 
@@ -29,7 +29,8 @@ There should be a message at the top of the console pane:
 3. Click the `Restore` button on this message to install the missing packages
 4. In the console, run the command `Update-Database`
 5. Clean the solution with `Build -> Clean Solution`
-6. Press `ctrl + F5` to run the project, it should open in your default browser
+6. Rebuild the solution with `Build -> Rebuild Solution`
+7. Press `ctrl + F5` to run the project, it should open in your default browser
 
 ## Usage
 
