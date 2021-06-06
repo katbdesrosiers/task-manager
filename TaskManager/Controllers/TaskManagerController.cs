@@ -32,5 +32,10 @@ namespace TaskManager.Controllers
         {
             return userManager.FindById(User.Identity.GetUserId());
         }
+
+        protected void DefaultViewBag(ApplicationUser user)
+        {
+            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+        }
     }
 }

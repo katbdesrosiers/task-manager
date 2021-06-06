@@ -16,7 +16,9 @@ namespace TaskManager.Controllers
             notificationHelper.RemoveDeletedNotifications();
 
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+
+            DefaultViewBag(user);
+
             return View(user.Notifications.OrderByDescending(n=>n.DateCreated));
         }
     }

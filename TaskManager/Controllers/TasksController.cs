@@ -18,7 +18,8 @@ namespace TaskManager.Controllers
 
             taskHelper.CheckTaskDeadline(user, notificationHelper);
 
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+            DefaultViewBag(user);
+
             var tasks = user.Tasks.GroupBy(t => t.Project);
             return View(tasks);
         }
@@ -39,7 +40,9 @@ namespace TaskManager.Controllers
                 TempData["Error"] = "Your task is missing something";
 
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+
+            DefaultViewBag(user);
+
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
@@ -55,8 +58,8 @@ namespace TaskManager.Controllers
                 return HttpNotFound();
 
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
 
+            DefaultViewBag(user);
             ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 
             return View(task);
@@ -86,7 +89,9 @@ namespace TaskManager.Controllers
         public ActionResult TasksNotFinishedOnTime()
         {
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+
+            DefaultViewBag(user);
+
             return View(taskHelper.OverdueTasks());
         }
 
@@ -105,10 +110,11 @@ namespace TaskManager.Controllers
 
             taskHelper.ChangeCompletion(task, CompletionPercentage, notificationHelper, projectHelper);
 
+            var user = CurrentUser();
+
+            DefaultViewBag(user);
             ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 
-            var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View("Details", task);
         }
 
