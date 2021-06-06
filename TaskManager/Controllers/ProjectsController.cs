@@ -16,9 +16,9 @@ namespace TaskManager.Controllers
         {
             var user = CurrentUser();
 
-            notificationHelper.CreatePassedDeadlineNotification(user);
-            
             DefaultViewBag(user);
+            
+            notificationHelper.CreatePassedDeadlineNotification(user);
 
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
