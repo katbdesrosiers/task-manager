@@ -36,9 +36,9 @@ namespace TaskManager.Models
             return tasks.ToList();
         }
 
-        public ICollection<Project> OverBudget()
+        public ICollection<Project> OverBudget(ApplicationUser user)
         {
-            return db.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost).ToList();
+            return user.Projects.Where(p => p.DateCompleted != null && p.Budget < p.TotalCost).ToList();
         }
 
         public void CalcTotalCost(Project project)

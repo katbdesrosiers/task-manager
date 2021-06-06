@@ -34,14 +34,14 @@
     {
         <input type="submit"
                value="Hide Completed"
-               class="btn btn-@(ViewBag.Filter == "hide" ? "success" : "default")" />
+               class="btn btn-@(ViewBag.Filter == "hide" ? "default" : "success")" />
     }
     @using (Html.BeginForm("Details", "Projects", new { id = Model.ID, sort = ViewBag.Sort }))
     {
         <input style="margin-left: 10px;"
                type="submit"
                value="Priority"
-               class="btn btn-@(ViewBag.Sort == "highPriority" ? "success" : "default")" />
+               class="btn btn-@(ViewBag.Sort == "highPriority" ? "default" : "success")" />
     }
 </div>
 

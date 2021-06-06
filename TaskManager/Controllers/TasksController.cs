@@ -18,7 +18,8 @@ namespace TaskManager.Controllers
 
             taskHelper.CheckTaskDeadline(user, notificationHelper);
 
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+            DefaultViewBag(user);
+
             var tasks = user.Tasks.GroupBy(t => t.Project);
             return View(tasks);
         }
@@ -28,35 +29,42 @@ namespace TaskManager.Controllers
         [Authorize(Roles = "manager")]
         public ActionResult Create([Bind(Include = "Name,ProjectID,Deadline,Priority,DeveloperID")] ProjectTask task)
         {
-            var project = db.Projects.Find(task.ProjectID);
+            Project project;
 
-            if (project == null)
-                return HttpNotFound();
+            var user = CurrentUser();
+
+            var result = ProtectProject(task.ProjectID, user);
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                project = (Project)result;
 
             if (ModelState.IsValid)
                 taskHelper.Add(task, project);
             else
                 TempData["Error"] = "Your task is missing something";
 
-            var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+            DefaultViewBag(user);
+
             return RedirectToAction("Details", "Projects", new { id = task.ProjectID });
         }
 
         [Authorize]
         public ActionResult Details(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var task = db.Tasks.Find(id);
-
-            if (task == null)
-                return HttpNotFound();
+            ProjectTask task;
 
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
 
+            var result = ProtectTask(id, user, null);
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                task = (ProjectTask)result;
+
+            DefaultViewBag(user);
             ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 
             return View(task);
@@ -67,13 +75,16 @@ namespace TaskManager.Controllers
         [Authorize(Roles = "manager")]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ProjectTask task;
 
-            var task = db.Tasks.Find(id);
+            var user = CurrentUser();
 
-            if (task == null)
-                return HttpNotFound();
+            var result = ProtectTask(id, user, "manager");
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                task = (ProjectTask)result;
 
             var project = task.Project;
             taskHelper.Remove(task);
@@ -86,8 +97,10 @@ namespace TaskManager.Controllers
         public ActionResult TasksNotFinishedOnTime()
         {
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            return View(taskHelper.OverdueTasks());
+
+            DefaultViewBag(user);
+
+            return View(taskHelper.OverdueTasks(user));
         }
 
         [HttpPost]
@@ -95,20 +108,22 @@ namespace TaskManager.Controllers
         [Authorize(Roles = "developer")]
         public ActionResult UpdatePercent(int? id, int CompletionPercentage)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ProjectTask task;
 
-            var task = db.Tasks.Find(id);
+            var user = CurrentUser();
 
-            if (task == null)
-                return HttpNotFound();
+            var result = ProtectTask(id, user, "developer");
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                task = (ProjectTask)result;
 
             taskHelper.ChangeCompletion(task, CompletionPercentage, notificationHelper, projectHelper);
 
+            DefaultViewBag(user);
             ViewBag.Developers = formsHelper.DeveloperSelectList(task.Developer);
 
-            var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View("Details", task);
         }
 
@@ -117,10 +132,16 @@ namespace TaskManager.Controllers
         [Authorize(Roles = "developer")]
         public ActionResult Comment([Bind(Include = "Content,TaskID,DeveloperID,Urgent")] Comment comment)
         {
-            var task = db.Tasks.Find(comment.TaskID);
+            ProjectTask task;
 
-            if (task == null)
-                return HttpNotFound();
+            var user = CurrentUser();
+
+            var result = ProtectTask(comment.TaskID, user, "developer");
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                task = (ProjectTask)result;
 
             if (ModelState.IsValid)
                 taskHelper.AddComment(task, comment, notificationHelper);
@@ -135,36 +156,22 @@ namespace TaskManager.Controllers
         [Authorize(Roles = "manager")]
         public ActionResult ChangeDeveloper(int? id, string DeveloperID)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            ProjectTask task;
 
-            var task = db.Tasks.Find(id);
+            var user = CurrentUser();
 
-            if (task == null)
-                return HttpNotFound();
+            var result = ProtectTask(id, user, "manager");
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                task = (ProjectTask)result;
 
             var developer = db.Users.Find(DeveloperID);
 
             taskHelper.ChangeDeveloper(task, developer);
 
             return RedirectToAction("Details", "Tasks", new { id = task.ID });
-        }
-
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult Read()
-        {
-            var user = CurrentUser();
-
-            user.Notifications
-                .Where(n => !n.Read)
-                .ToList()
-                .ForEach(n => n.Read = true);
-
-            db.SaveChanges();
-
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

@@ -17,15 +17,17 @@ namespace TaskManager.Controllers
             var user = CurrentUser();
 
             notificationHelper.CreatePassedDeadlineNotification(user);
+            
+            DefaultViewBag(user);
 
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(user.Projects.OrderByDescending(p => p.Priority).ThenBy(p => p.Deadline));
         }
 
         public ActionResult Create()
         {
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+            
+            DefaultViewBag(user);
             ViewBag.Priorities = formsHelper.PrioritySelectList();
 
             return View();
@@ -42,7 +44,8 @@ namespace TaskManager.Controllers
                 projectHelper.Add(project, user);
                 return RedirectToAction("Details", "Projects", new { id = project.ID });
             }
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+
+            DefaultViewBag(user);
             ViewBag.Priorities = formsHelper.PrioritySelectList();
 
             return View(project);
@@ -50,45 +53,53 @@ namespace TaskManager.Controllers
 
         public ActionResult Details(int? id, string filter, string sort)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Project project;
 
-            var project = db.Projects.Find(id);
+            var user = CurrentUser();
 
-            if (project == null)
-                return HttpNotFound();
+            var result = ProtectProject(id, user);
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                project = (Project)result;
 
             ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
             ViewBag.Sort = sort == "highPriority" ? "normal" : "highPriority";
 
             project.Tasks = projectHelper.Tasks(project, filter, sort);
 
+
+            DefaultViewBag(user);
             ViewBag.Priorities = formsHelper.PrioritySelectList();
             ViewBag.Developers = formsHelper.DeveloperSelectList();
 
-            var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
             return View(project);
         }
 
         public ActionResult OverBudget()
         {
             var user = CurrentUser();
-            ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
-            return View(projectHelper.OverBudget());
+
+            DefaultViewBag(user);
+
+            return View(projectHelper.OverBudget(user));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Project project;
 
-            var project = db.Projects.Find(id);
+            var user = CurrentUser();
 
-            if (project == null)
-                return HttpNotFound();
+            var result = ProtectProject(id, user);
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                project = (Project)result;
 
             projectHelper.Remove(project);
 

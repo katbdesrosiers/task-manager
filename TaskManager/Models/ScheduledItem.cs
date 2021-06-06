@@ -45,7 +45,7 @@ namespace TaskManager.Models
                     case Priority.High:
                         return "warning";
                     default:
-                        return "info";
+                        return "default";
                 }
             }
         }
