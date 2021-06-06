@@ -83,7 +83,7 @@ namespace TaskManager.Controllers
 
             DefaultViewBag(user);
 
-            return View(projectHelper.OverBudget());
+            return View(projectHelper.OverBudget(user));
         }
 
         [HttpPost]
