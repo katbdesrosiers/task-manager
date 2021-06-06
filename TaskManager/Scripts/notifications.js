@@ -4,7 +4,7 @@
 
     if (token.length && unread.length > 0) {
         $.ajax({
-            url: '/Tasks/Read',
+            url: '/Notifications/Read',
             method: 'POST',
             data: {
                 __RequestVerificationToken: token.val()

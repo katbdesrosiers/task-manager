@@ -155,22 +155,5 @@ namespace TaskManager.Controllers
 
             return RedirectToAction("Details", "Tasks", new { id = task.ID });
         }
-
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult Read()
-        {
-            var user = CurrentUser();
-
-            user.Notifications
-                .Where(n => !n.Read)
-                .ToList()
-                .ForEach(n => n.Read = true);
-
-            db.SaveChanges();
-
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
     }
 }
