@@ -53,20 +53,22 @@ namespace TaskManager.Controllers
 
         public ActionResult Details(int? id, string filter, string sort)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Project project;
 
-            var project = db.Projects.Find(id);
+            var user = CurrentUser();
 
-            if (project == null)
-                return HttpNotFound();
+            var result = ProtectProject(id, user);
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                project = (Project)result;
 
             ViewBag.Filter = String.IsNullOrEmpty(filter) ? "hide" : "";
             ViewBag.Sort = sort == "highPriority" ? "normal" : "highPriority";
 
             project.Tasks = projectHelper.Tasks(project, filter, sort);
 
-            var user = CurrentUser();
 
             DefaultViewBag(user);
             ViewBag.Priorities = formsHelper.PrioritySelectList();
@@ -88,13 +90,16 @@ namespace TaskManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Project project;
 
-            var project = db.Projects.Find(id);
+            var user = CurrentUser();
 
-            if (project == null)
-                return HttpNotFound();
+            var result = ProtectProject(id, user);
+
+            if (result is HttpStatusCodeResult)
+                return (HttpStatusCodeResult)result;
+            else
+                project = (Project)result;
 
             projectHelper.Remove(project);
 

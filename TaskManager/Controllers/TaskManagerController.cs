@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TaskManager.Models;
@@ -36,6 +37,38 @@ namespace TaskManager.Controllers
         protected void DefaultViewBag(ApplicationUser user)
         {
             ViewBag.NotificationCount = notificationHelper.UnreadCount(user);
+        }
+
+        protected object ProtectProject(int? id, ApplicationUser user)
+        {
+            HttpStatusCode status = HttpStatusCode.OK;
+            Project project = null;
+            object result;
+
+            if (id == null)
+            {
+                status = HttpStatusCode.BadRequest;
+            }
+            else if (!userManager.IsInRole(user.Id, "manager"))
+            {
+                status = HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                project = db.Projects.Find(id);
+
+                if (project == null)
+                    status = HttpStatusCode.NotFound;
+                else if (project.ManagerID != user.Id)
+                    status = HttpStatusCode.Forbidden;
+            }
+
+            if (status != HttpStatusCode.OK)
+                result = new HttpStatusCodeResult(status);
+            else
+                result = project;
+
+            return result;
         }
     }
 }
